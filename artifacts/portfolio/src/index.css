@@ -1,263 +1,317 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --navy-900: #050c18;
-  --navy-800: #080e1a;
-  --navy-700: #0d1a2e;
-  --navy-600: #112240;
-  --navy-500: #1a3558;
-  --royal-blue: #1565c0;
-  --royal-blue-light: #1976d2;
-  --royal-blue-pale: #2196f3;
-  --logo-blue: #29a8e0;
-  --gold: #c9a84c;
-  --gold-light: #e2c97e;
-  --white: #ffffff;
-  --gray-50: #f8fafc;
-  --gray-100: #f1f5f9;
-  --gray-200: #e2e8f0;
-  --gray-300: #cbd5e1;
-  --gray-400: #94a3b8;
-  --gray-500: #64748b;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --card-bg: rgba(13, 26, 46, 0.95);
-  --card-border: rgba(41, 168, 224, 0.15);
-  --divider: rgba(255,255,255,0.08);
-  --font-arabic: 'Cairo', 'Tajawal', sans-serif;
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.35);
-  --shadow-elevated: 0 8px 48px rgba(0,0,0,0.5);
+  /* iOS 26 Liquid Glass — Dark Variant */
+  --bg-base:        #0a0a0f;
+  --bg-layer1:      #111118;
+  --bg-layer2:      #17171f;
+
+  /* Accent — pulled from logo blue */
+  --accent:         #1c8ef5;
+  --accent-bright:  #3fa3ff;
+  --accent-glow:    rgba(28, 142, 245, 0.35);
+  --accent-subtle:  rgba(28, 142, 245, 0.12);
+
+  /* Glass material */
+  --glass-bg:       rgba(255, 255, 255, 0.055);
+  --glass-bg-hover: rgba(255, 255, 255, 0.085);
+  --glass-border:   rgba(255, 255, 255, 0.10);
+  --glass-border-active: rgba(255, 255, 255, 0.22);
+  --glass-shine:    rgba(255, 255, 255, 0.06);
+  --glass-blur:     blur(28px) saturate(180%);
+
+  /* Frosted tinted glass (blue tint) */
+  --glass-tinted-bg:     rgba(28, 142, 245, 0.08);
+  --glass-tinted-border: rgba(28, 142, 245, 0.18);
+
+  /* Typography */
+  --text-primary:   rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --text-tertiary:  rgba(255, 255, 255, 0.30);
+
+  /* Radius — iOS 26 is very rounded */
+  --radius-xs:  8px;
+  --radius-sm:  12px;
+  --radius-md:  18px;
+  --radius-lg:  24px;
+  --radius-xl:  32px;
+  --radius-2xl: 44px;
+
+  /* Shadows — soft, layered */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md:  0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-lg:  0 20px 60px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-glow: 0 0 40px rgba(28, 142, 245, 0.2);
+
+  --font-arabic: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-arabic);
-  background-color: var(--navy-800);
+  background: var(--bg-base);
   color: var(--text-primary);
   direction: rtl;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--navy-900); }
-::-webkit-scrollbar-thumb { background: var(--royal-blue); border-radius: 3px; }
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
-/* ── Typography ── */
-.heading-xl {
-  font-size: clamp(2.2rem, 5vw, 4rem);
+/* ═══════════════════════════════════
+   LIQUID GLASS MATERIAL
+════════════════════════════════════ */
+
+/* Base glass panel */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md),
+              inset 0 1px 0 rgba(255,255,255,0.08);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.glass:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-active);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+/* Elevated glass (for featured cards) */
+.glass-elevated {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(36px) saturate(200%);
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg),
+              inset 0 1px 0 rgba(255,255,255,0.12),
+              inset 0 -1px 0 rgba(255,255,255,0.04);
+}
+
+/* Tinted glass (accent color) */
+.glass-tinted {
+  background: var(--glass-tinted-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-tinted-border);
+  border-radius: var(--radius-md);
+}
+
+/* Inset / inner glass */
+.glass-inset {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-sm);
+}
+
+/* ═══════════════════════════════════
+   BACKGROUND ORBS (iOS 26 style)
+════════════════════════════════════ */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════
+   TYPOGRAPHY
+════════════════════════════════════ */
+.text-display {
+  font-size: clamp(2.8rem, 6vw, 5rem);
   font-weight: 900;
-  line-height: 1.18;
-  letter-spacing: -0.5px;
-  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--text-primary);
 }
-.heading-lg {
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
+.text-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 800;
-  color: var(--white);
+  line-height: 1.25;
+  color: var(--text-primary);
 }
-.heading-md {
-  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+.text-headline {
+  font-size: clamp(1rem, 2vw, 1.3rem);
   font-weight: 700;
-  color: var(--white);
+  color: var(--text-primary);
 }
-.body-text {
+.text-body {
   font-size: 15px;
-  line-height: 1.8;
+  line-height: 1.75;
   color: var(--text-secondary);
   font-weight: 400;
 }
-.label-text {
+.text-caption {
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--logo-blue);
+  color: var(--text-tertiary);
+  letter-spacing: 0.5px;
 }
+.text-accent { color: var(--accent-bright); }
 
-/* ── Cards ── */
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  box-shadow: var(--shadow-card);
-  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-}
-.card:hover {
-  box-shadow: var(--shadow-elevated);
-  border-color: rgba(41, 168, 224, 0.35);
-}
-
-.card-elevated {
-  background: linear-gradient(145deg, rgba(17, 34, 64, 0.98) 0%, rgba(13, 26, 46, 0.98) 100%);
-  border: 1px solid rgba(41, 168, 224, 0.2);
-  border-radius: 20px;
-  box-shadow: 0 2px 0 rgba(201, 168, 76, 0.4), var(--shadow-elevated);
-}
-
-/* ── Accent Bar ── */
-.accent-bar {
-  width: 48px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--logo-blue), var(--gold));
-  border-radius: 2px;
-}
-
-/* ── Buttons ── */
-.btn-primary {
+/* ═══════════════════════════════════
+   BUTTONS — iOS 26 style
+════════════════════════════════════ */
+.btn {
   display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 32px;
-  background: linear-gradient(135deg, var(--royal-blue) 0%, var(--logo-blue) 100%);
-  color: var(--white);
-  font-family: var(--font-arabic);
-  font-size: 15px;
-  font-weight: 700;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(21, 101, 192, 0.35);
-}
-.btn-primary:hover {
-  background: linear-gradient(135deg, var(--royal-blue-light) 0%, var(--royal-blue-pale) 100%);
-  box-shadow: 0 6px 24px rgba(21, 101, 192, 0.5);
-  transform: translateY(-1px);
-  color: var(--white);
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 30px;
-  background: transparent;
-  color: var(--white);
-  font-family: var(--font-arabic);
-  font-size: 15px;
-  font-weight: 600;
-  border: 1.5px solid rgba(255,255,255,0.25);
-  border-radius: 10px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-.btn-outline:hover {
-  border-color: rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.06);
-  transform: translateY(-1px);
-  color: var(--white);
-}
-
-/* ── Section Layout ── */
-.section-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 28px;
-}
-
-.section-header {
-  margin-bottom: 60px;
-}
-
-/* ── Badge / Tag ── */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: rgba(41, 168, 224, 0.1);
-  border: 1px solid rgba(41, 168, 224, 0.25);
-  border-radius: 100px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--logo-blue);
-}
-
-.badge-gold {
-  background: rgba(201, 168, 76, 0.1);
-  border-color: rgba(201, 168, 76, 0.25);
-  color: var(--gold-light);
-}
-
-.badge-white {
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(255,255,255,0.15);
-  color: rgba(248,250,252,0.8);
-}
-
-/* ── Divider ── */
-.divider {
-  height: 1px;
-  background: var(--divider);
-}
-
-/* ── Navbar ── */
-.navbar {
-  position: fixed;
-  top: 0; right: 0; left: 0;
-  z-index: 1000;
-  transition: all 0.4s ease;
-}
-.navbar-scrolled {
-  background: rgba(8, 14, 26, 0.97);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(41, 168, 224, 0.12);
-  box-shadow: 0 2px 32px rgba(0,0,0,0.4);
-}
-
-/* ── Number Stat ── */
-.stat-number {
-  font-size: 2.4rem;
-  font-weight: 900;
-  color: var(--white);
-  line-height: 1;
-}
-
-/* ── Skill icon box ── */
-.skill-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius-2xl);
+  font-family: var(--font-arabic);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: none;
+  letter-spacing: 0.2px;
+}
+
+.btn-filled {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 20px var(--accent-glow),
+              inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-filled:hover {
+  background: var(--accent-bright);
+  box-shadow: 0 6px 28px rgba(28,142,245,0.5), inset 0 1px 0 rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+  color: #fff;
+}
+.btn-filled:active { transform: translateY(0); }
+
+.btn-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.btn-glass:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-active);
+  color: var(--text-primary);
+}
+
+/* ═══════════════════════════════════
+   BADGE / CHIP — iOS 26 pill style
+════════════════════════════════════ */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 13px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--glass-tinted-bg);
+  border: 1px solid var(--glass-tinted-border);
+  color: var(--accent-bright);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.chip-neutral {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.12);
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════
+   SECTION LAYOUT
+════════════════════════════════════ */
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ═══════════════════════════════════
+   NAVBAR — iOS 26 Liquid Glass bar
+════════════════════════════════════ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 12px 24px;
+}
+.navbar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  background: rgba(20, 20, 30, 0.65);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4),
+              inset 0 1px 0 rgba(255,255,255,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* ═══════════════════════════════════
+   DIVIDER
+════════════════════════════════════ */
+.sep {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* ═══════════════════════════════════
+   SKILL ICON BOX
+════════════════════════════════════ */
+.icon-box {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ═══════════════════════════════════
+   DOT bullet
+════════════════════════════════════ */
+.dot-bullet {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent-bright);
   flex-shrink: 0;
 }
 
-/* ── Section bg variants ── */
-.bg-dark { background-color: var(--navy-800); }
-.bg-darker { background-color: var(--navy-900); }
-.bg-mid { background-color: var(--navy-700); }
-
-/* ── Ornament line ── */
-.ornament {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  justify-content: center;
+/* ═══════════════════════════════════
+   KEYFRAMES
+════════════════════════════════════ */
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -20px) scale(1.05); }
+  66%  { transform: translate(-20px, 15px) scale(0.97); }
 }
-.ornament::before, .ornament::after {
-  content: '';
-  flex: 1;
-  max-width: 80px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(41, 168, 224, 0.4));
+@keyframes floatDot {
+  0%, 100% { transform: translateY(0); opacity: 0.15; }
+  50% { transform: translateY(-14px); opacity: 0.3; }
 }
-.ornament::before {
-  background: linear-gradient(270deg, transparent, rgba(41, 168, 224, 0.4));
-}
-
-@keyframes fadeInUp {
+@keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
@@ -266,24 +320,13 @@ body {
   to   { opacity: 1; }
 }
 
-.animate-fade-up { animation: fadeInUp 0.7s ease forwards; }
-.animate-fade    { animation: fadeIn 1s ease forwards; }
-
-/* ── CSS Particle fallback (minimal, elegant) ── */
-@keyframes floatDot {
-  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.15; }
-  33%  { transform: translateY(-18px) translateX(6px); opacity: 0.3; }
-  66%  { transform: translateY(-8px) translateX(-8px); opacity: 0.2; }
-}
-
-/* ── Project image placeholder ── */
+/* ═══════════════════════════════════
+   IMG PLACEHOLDER
+════════════════════════════════════ */
 .img-placeholder {
-  background: linear-gradient(135deg, rgba(21,101,192,0.12) 0%, rgba(13,26,46,0.6) 100%);
-  border: 1px dashed rgba(41,168,224,0.2);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 8px;
+  background: rgba(0,0,0,0.2);
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 6px;
 }

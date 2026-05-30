@@ -9,109 +9,129 @@ const skills = [
     icon: "🔬",
     title: "التحليل الجنائي الرقمي",
     sub: "Digital Forensics",
-    desc: "استخراج الأدلة الرقمية من الأجهزة المشفرة والمقفلة باستخدام أحدث التقنيات الجنائية المعتمدة دولياً.",
-    items: ["Cellebrite UFED — استخراج جنائي متقدم", "Oxygen Forensic Detective", "تجاوز الأقفال واستخراج البيانات", "تحليل الأجهزة المشفرة"],
-    color: "#29a8e0",
-    span: "col-span-12 md:col-span-7",
-    featured: true,
+    color: "#1c8ef5",
+    span: "col-span-12 md:col-span-6",
+    items: [
+      "Cellebrite UFED & Oxygen Forensic",
+      "تجاوز الأقفال واستخراج البيانات",
+      "تحليل الأجهزة المشفرة والمقفلة",
+    ],
   },
   {
     id: "mobile",
     icon: "📱",
     title: "برمجيات الهاتف المتقدمة",
     sub: "Advanced Mobile",
-    desc: "التعامل المحترف مع صناديق وأدوات الهاتف المتخصصة وتجاوز حماية المصنع.",
-    items: ["Pandora / Chimera / DFT Pro", "EFT Pro / Z3X Box", "تجاوز iCloud & Android FRP", "Firmware Management"],
-    color: "#1976d2",
-    span: "col-span-12 md:col-span-5",
-    featured: false,
+    color: "#6450f0",
+    span: "col-span-12 md:col-span-6",
+    items: [
+      "Pandora / Chimera / DFT Pro",
+      "EFT Pro / Z3X Box",
+      "تجاوز iCloud & Android FRP",
+      "Firmware Management",
+    ],
   },
   {
     id: "gsm",
     icon: "📡",
     title: "إدارة سيرفرات GSM",
     sub: "GSM Server Management",
-    desc: "إدارة شاملة لسيرفرات GSM مع إدارة الكريدت والاشتراكات.",
-    items: ["HalabTech Server", "شراء الكريدت وإدارة الاشتراكات", "نشر Firmware آمن", "دعم طيف واسع من الأجهزة"],
-    color: "#7c3aed",
+    color: "#0891b2",
     span: "col-span-12 md:col-span-4",
-    featured: false,
+    items: [
+      "HalabTech Server",
+      "شراء الكريدت وإدارة الاشتراكات",
+      "نشر Firmware آمن",
+      "دعم طيف واسع من الأجهزة",
+    ],
   },
   {
     id: "dev",
     icon: "⚡",
     title: "هندسة البرمجيات",
     sub: "Software Engineering",
-    desc: "تطوير تطبيقات Android أصيلة وبناء واجهات ويب متجاوبة وعصرية.",
-    items: ["Android (Java / Kotlin)", "تطبيقات React & Vite", "قواعد بيانات مشفرة", "UI/UX عربي متعدد اللغات"],
-    color: "#d97706",
+    color: "#f59e0b",
     span: "col-span-12 md:col-span-4",
-    featured: false,
-  },
-  {
-    id: "net",
-    icon: "🌐",
-    title: "هندسة الشبكات",
-    sub: "Network Engineering",
-    desc: "تصميم وإدارة الشبكات مع تطبيق معايير الأمان.",
-    items: ["TCP/IP وبروتوكولات الشبكات", "Cisco Networking", "أمن الشبكات والجدران النارية", "إدارة الخوادم"],
-    color: "#0891b2",
-    span: "col-span-12 md:col-span-4",
-    featured: false,
+    items: [
+      "تصميم تطبيقات Android",
+      "برمجة المواقع الإلكترونية",
+    ],
   },
   {
     id: "design",
     icon: "🎨",
-    title: "تصميم ودعاية",
-    sub: "Design & Marketing",
-    desc: "تصميم الهوية البصرية وإدارة الحملات الإعلانية.",
-    items: ["تصميم جرافيك احترافي", "حملات وسائل التواصل", "هوية بصرية متكاملة", "صيانة الحواسيب"],
-    color: "#db2777",
+    title: "تصميم جرافيكي",
+    sub: "Graphic Design",
+    color: "#ec4899",
+    span: "col-span-12 md:col-span-4",
+    items: [
+      "تصميم جرافيكي احترافي",
+      "تصميم بوسترات بطابع حديث",
+    ],
+  },
+  {
+    id: "pc",
+    icon: "🖥️",
+    title: "صيانة الحاسب",
+    sub: "PC Maintenance",
+    color: "#10b981",
     span: "col-span-12 md:col-span-6",
-    featured: false,
+    items: [
+      "صيانة هاردوير شاملة",
+      "تثبيت وإدارة الأنظمة (سوفتوير)",
+      "استعادة البيانات",
+    ],
   },
 ];
 
 function SkillCard({ skill, index }: { skill: typeof skills[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!ref.current) return;
     gsap.fromTo(ref.current,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.65, delay: index * 0.07, ease: "power2.out",
-        scrollTrigger: { trigger: ref.current, start: "top 88%", once: true } }
+      { opacity: 0, y: 36, scale: 0.97 },
+      {
+        opacity: 1, y: 0, scale: 1,
+        duration: 0.65, delay: index * 0.07,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ref.current, start: "top 89%", once: true },
+      }
     );
   }, [index]);
 
   return (
     <div
       ref={ref}
-      className={`${skill.span} card`}
-      style={{ padding: skill.featured ? 32 : 26, opacity: 0, cursor: "default" }}
+      className={`${skill.span} glass`}
+      style={{ padding: 26, opacity: 0, cursor: "default" }}
     >
-      <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 18 }}>
-        <div className="skill-icon" style={{ background: `${skill.color}18`, border: `1px solid ${skill.color}30` }}>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
+        <div
+          className="icon-box"
+          style={{
+            background: `${skill.color}14`,
+            borderColor: `${skill.color}28`,
+          }}
+        >
           {skill.icon}
         </div>
-        <div style={{ flex: 1 }}>
-          <h3 style={{ fontSize: skill.featured ? 17 : 15, fontWeight: 700, color: "#f8fafc", marginBottom: 3 }}>
-            {skill.title}
-          </h3>
-          <div style={{ fontSize: 11, fontWeight: 600, color: skill.color, letterSpacing: 0.5 }}>{skill.sub}</div>
+        <div>
+          <div className="text-headline" style={{ fontSize: 15, marginBottom: 2 }}>{skill.title}</div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: skill.color, letterSpacing: 0.4 }}>{skill.sub}</div>
         </div>
       </div>
 
-      {skill.featured && (
-        <p style={{ fontSize: 14, color: "rgba(203,213,225,0.65)", lineHeight: 1.75, marginBottom: 20 }}>
-          {skill.desc}
-        </p>
-      )}
+      {/* Separator */}
+      <div className="sep" style={{ marginBottom: 16 }} />
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {/* Items */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
         {skill.items.map((item, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 5, height: 5, borderRadius: "50%", background: skill.color, flexShrink: 0 }} />
-            <span style={{ fontSize: 13.5, color: "rgba(203,213,225,0.75)" }}>{item}</span>
+            <div className="dot-bullet" style={{ background: skill.color }} />
+            <span style={{ fontSize: 13.5, color: "var(--text-secondary)" }}>{item}</span>
           </div>
         ))}
       </div>
@@ -121,38 +141,38 @@ function SkillCard({ skill, index }: { skill: typeof skills[0]; index: number })
 
 export default function SkillsSection() {
   const hRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!hRef.current) return;
     gsap.fromTo(hRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-        scrollTrigger: { trigger: hRef.current, start: "top 85%", once: true } }
+      { opacity: 0, y: 28 },
+      {
+        opacity: 1, y: 0, duration: 0.75, ease: "power2.out",
+        scrollTrigger: { trigger: hRef.current, start: "top 86%", once: true },
+      }
     );
   }, []);
 
   return (
-    <section id="skills" style={{ padding: "100px 0", background: "var(--navy-900)" }}>
-      <div className="section-container">
+    <section id="skills" style={{
+      padding: "100px 0",
+      background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(28,142,245,0.04) 0%, transparent 70%), var(--bg-layer1)",
+    }}>
+      <div className="container">
 
-        <div ref={hRef} className="section-header" style={{ opacity: 0 }}>
-          <div className="label-text" style={{ marginBottom: 14, textAlign: "center" }}>
-            الكفاءات والخبرات
-          </div>
-          <h2 className="heading-lg" style={{ textAlign: "center", marginBottom: 16 }}>
-            المهارات التقنية
-          </h2>
-          <div className="ornament">
-            <div className="accent-bar" />
-          </div>
-          <p className="body-text" style={{ textAlign: "center", maxWidth: 520, margin: "20px auto 0", fontSize: 14 }}>
-            خلفية تقنية شاملة تجمع بين التحليل الجنائي الرقمي، الأمن السيبراني، وتطوير البرمجيات
-          </p>
+        {/* Header */}
+        <div ref={hRef} style={{ textAlign: "center", marginBottom: 56, opacity: 0 }}>
+          <span className="chip" style={{ marginBottom: 18, display: "inline-flex" }}>المهارات التقنية</span>
+          <h2 className="text-title" style={{ marginBottom: 14 }}>الكفاءات والخبرات</h2>
+          <div style={{
+            width: 36, height: 3, borderRadius: 2, margin: "0 auto",
+            background: "linear-gradient(90deg, var(--accent), #6450f0)",
+          }} />
         </div>
 
-        <div className="bento-grid" style={{ display: "grid", gap: 18, gridTemplateColumns: "repeat(12, 1fr)" }}>
-          {skills.map((skill, i) => (
-            <SkillCard key={skill.id} skill={skill} index={i} />
-          ))}
+        {/* Grid */}
+        <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(12, 1fr)" }}>
+          {skills.map((s, i) => <SkillCard key={s.id} skill={s} index={i} />)}
         </div>
 
       </div>
