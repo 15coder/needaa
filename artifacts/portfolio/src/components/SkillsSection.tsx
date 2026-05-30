@@ -3,83 +3,88 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
-const skills = [
+const SKILLS = [
   {
     id:"forensics", icon:"🔬",
     title:"التحليل الجنائي الرقمي", sub:"Digital Forensics",
-    chipClass:"chip-blue", dotColor:"var(--blue-color)",
-    span:"col-span-12 md:col-span-6",
+    chip:"chip-blue", dot:"var(--blue)",
     items:["Cellebrite UFED & Oxygen Forensic","تجاوز الأقفال واستخراج البيانات","تحليل الأجهزة المشفرة والمقفلة"],
+    span:2,
   },
   {
     id:"mobile", icon:"📱",
     title:"برمجيات الهاتف المتقدمة", sub:"Advanced Mobile",
-    chipClass:"chip-purple", dotColor:"var(--purple-color)",
-    span:"col-span-12 md:col-span-6",
+    chip:"chip-purple", dot:"var(--c-purple)",
     items:["Pandora / Chimera / DFT Pro","EFT Pro / Z3X Box","تجاوز iCloud & Android FRP","Firmware Management"],
+    span:2,
   },
   {
     id:"gsm", icon:"📡",
     title:"إدارة سيرفرات GSM", sub:"GSM Server Management",
-    chipClass:"chip-teal", dotColor:"var(--teal-color)",
-    span:"col-span-12 md:col-span-4",
-    items:["HalabTech Server","شراء الكريدت وإدارة الاشتراكات","نشر Firmware آمن","دعم طيف واسع من الأجهزة"],
+    chip:"chip-teal", dot:"var(--c-teal)",
+    items:["HalabTech Server","شراء الكريدت وإدارة الاشتراكات","نشر Firmware آمن"],
+    span:1,
   },
   {
     id:"dev", icon:"⚡",
     title:"هندسة البرمجيات", sub:"Software Engineering",
-    chipClass:"chip-orange", dotColor:"var(--orange-color)",
-    span:"col-span-12 md:col-span-4",
+    chip:"chip-orange", dot:"var(--c-orange)",
     items:["تصميم تطبيقات Android","برمجة المواقع الإلكترونية"],
+    span:1,
   },
   {
     id:"design", icon:"🎨",
     title:"تصميم جرافيكي", sub:"Graphic Design",
-    chipClass:"chip-pink", dotColor:"var(--pink-color)",
-    span:"col-span-12 md:col-span-4",
+    chip:"chip-pink", dot:"var(--c-pink)",
     items:["تصميم جرافيكي احترافي","تصميم بوسترات بطابع حديث"],
+    span:1,
   },
   {
     id:"pc", icon:"🖥️",
     title:"صيانة الحاسب", sub:"PC Maintenance",
-    chipClass:"chip-green", dotColor:"var(--green-color)",
-    span:"col-span-12 md:col-span-6",
-    items:["صيانة هاردوير شاملة","تثبيت وإدارة الأنظمة (سوفتوير)","استعادة البيانات"],
+    chip:"chip-green", dot:"var(--c-green)",
+    items:["صيانة هاردوير شاملة","تثبيت وإدارة الأنظمة","استعادة البيانات"],
+    span:1,
   },
 ];
 
-function SkillCard({ skill, index }: { skill: typeof skills[0]; index: number }) {
+function Card({ s, i }: { s:typeof SKILLS[0]; i:number }) {
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!ref.current) return;
+  useEffect(()=>{
+    if(!ref.current) return;
     gsap.fromTo(ref.current,
-      { opacity:0, y:32, scale:0.97 },
-      { opacity:1, y:0, scale:1, duration:0.6, delay:index*0.065,
+      { opacity:0, y:28, scale:.98 },
+      { opacity:1, y:0, scale:1, duration:.58, delay:i*.06,
         ease:"power2.out",
-        scrollTrigger:{ trigger:ref.current, start:"top 90%", once:true } }
+        scrollTrigger:{ trigger:ref.current, start:"top 92%", once:true }}
     );
-  }, [index]);
+  },[i]);
 
   return (
-    <div ref={ref} className={`${skill.span} glass-card`}
-      style={{ padding:"22px 20px", opacity:0, cursor:"default" }}>
+    <div ref={ref} className="glass card-lift"
+      style={{
+        padding:"var(--sp-6) var(--sp-5)", opacity:0,
+        borderRadius:"var(--r-xl)", cursor:"default",
+        gridColumn:`span ${s.span}`,
+      }}>
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:14 }}>
-        <div className="icon-box">{skill.icon}</div>
-        <div>
-          <div className="ios-headline" style={{ color:"var(--label-primary)", fontSize:15 }}>
-            {skill.title}
+        <div className="icon-box">{s.icon}</div>
+        <div style={{ minWidth:0 }}>
+          <div className="t-headline" style={{ fontSize:15, color:"var(--lbl-primary)", marginBottom:4 }}>
+            {s.title}
           </div>
-          <span className={`chip ${skill.chipClass}`} style={{ padding:"3px 9px", fontSize:11, marginTop:3 }}>
-            {skill.sub}
+          <span className={`chip ${s.chip}`} style={{ padding:"3px 9px", fontSize:11 }}>
+            {s.sub}
           </span>
         </div>
       </div>
-      <div className="sep" style={{ marginBottom:14 }} />
+      <div className="sep" style={{ marginBottom:12 }}/>
       <div style={{ display:"flex", flexDirection:"column", gap:9 }}>
-        {skill.items.map((item, i) => (
-          <div key={i} style={{ display:"flex", alignItems:"center", gap:10 }}>
-            <div className="dot" style={{ background:skill.dotColor }} />
-            <span className="ios-subhead" style={{ fontSize:14 }}>{item}</span>
+        {s.items.map((item,j)=>(
+          <div key={j} style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <div style={{ width:5, height:5, borderRadius:"50%",
+              background:s.dot, flexShrink:0 }}/>
+            <span className="t-foot">{item}</span>
           </div>
         ))}
       </div>
@@ -89,37 +94,56 @@ function SkillCard({ skill, index }: { skill: typeof skills[0]; index: number })
 
 export default function SkillsSection() {
   const hRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!hRef.current) return;
+  useEffect(()=>{
+    if(!hRef.current) return;
     gsap.fromTo(hRef.current,
-      { opacity:0, y:24 },
-      { opacity:1, y:0, duration:0.7, ease:"power2.out",
-        scrollTrigger:{ trigger:hRef.current, start:"top 87%", once:true } }
+      { opacity:0, y:22 },
+      { opacity:1, y:0, duration:.7, ease:"power2.out",
+        scrollTrigger:{ trigger:hRef.current, start:"top 88%", once:true }}
     );
-  }, []);
+  },[]);
 
   return (
-    <section id="skills" style={{
-      padding:"80px 0",
-      background:"var(--bg-grouped)",
-      transition:"background 0.3s",
-    }}>
-      <div className="container">
-        <div ref={hRef} style={{ textAlign:"center", marginBottom:44, opacity:0 }}>
-          <span className="chip chip-blue" style={{ marginBottom:14, display:"inline-flex" }}>
-            المهارات التقنية
-          </span>
-          <h2 className="ios-title1" style={{ marginBottom:12, color:"var(--label-primary)" }}>
-            الكفاءات والخبرات
-          </h2>
-          <div style={{ width:32, height:3, borderRadius:2, margin:"0 auto",
-            background:"linear-gradient(90deg, var(--accent), var(--purple-color))" }} />
-        </div>
+    <>
+      <style>{`
+        .skills-grid {
+          display:grid;
+          grid-template-columns:1fr;
+          gap:12px;
+        }
+        @media(min-width:500px){
+          .skills-grid { grid-template-columns:repeat(2,1fr); }
+        }
+        @media(min-width:768px){
+          .skills-grid { grid-template-columns:repeat(4,1fr); }
+        }
+        /* Force span-2 only on md+ */
+        @media(max-width:767px){
+          .skills-grid > div { grid-column:span 1 !important; }
+        }
+        @media(min-width:500px) and (max-width:767px){
+          .skills-grid > div:nth-child(1),
+          .skills-grid > div:nth-child(2) { grid-column:span 2 !important; }
+        }
+      `}</style>
 
-        <div style={{ display:"grid", gap:14, gridTemplateColumns:"repeat(12,1fr)" }}>
-          {skills.map((s,i) => <SkillCard key={s.id} skill={s} index={i} />)}
+      <section id="skills" className="section"
+        style={{ background:"var(--sys-bg-primary)", transition:"background .3s" }}>
+        <div className="wrap">
+
+          <div ref={hRef} className="sec-header" style={{ opacity:0 }}>
+            <span className="chip chip-blue" style={{ marginBottom:12 }}>المهارات التقنية</span>
+            <h2 className="t-title1" style={{ color:"var(--lbl-primary)" }}>الكفاءات والخبرات</h2>
+            <div className="divider"
+              style={{ background:"linear-gradient(90deg,var(--blue),var(--c-purple))" }}/>
+          </div>
+
+          <div className="skills-grid">
+            {SKILLS.map((s,i)=><Card key={s.id} s={s} i={i}/>)}
+          </div>
+
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
