@@ -4,7 +4,8 @@ const PROJECTS = [
     name: "نداء شايلد", nameEn: "Nidaa Shield",
     badge: "حماية الخصوصية", chip: "chip-blue",
     color: "var(--blue)",
-    gradient: "linear-gradient(135deg, var(--blue) 0%, var(--teal) 100%)",
+    gradient: "linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%)",
+    glowColor: "rgba(0,122,255,.22)",
     link: "https://t.me/nidaashield",
     modes: [
       { icon: "👨‍👩‍👧", t: "وضع الأسرة",   s: "Family" },
@@ -24,7 +25,8 @@ const PROJECTS = [
     name: "مجاهد للتجارة", nameEn: "Mujahed POS",
     badge: "إدارة تجارية", chip: "chip-purple",
     color: "var(--purple)",
-    gradient: "linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%)",
+    gradient: "linear-gradient(135deg, #AF52DE 0%, #FF375F 100%)",
+    glowColor: "rgba(175,82,222,.22)",
     link: "https://t.me/mojahedapp",
     modes: [
       { icon: "📷", t: "ماسح الباركود", s: "Scanner" },
@@ -49,6 +51,15 @@ function TelegramIcon() {
   );
 }
 
+/* Soft dot bullet instead of checkmark */
+function Dot({ color }: { color: string }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" style={{ flexShrink: 0, marginTop: 3 }}>
+      <circle cx="7" cy="7" r="3" fill={color} opacity=".75" />
+    </svg>
+  );
+}
+
 export default function ProjectsSection() {
   return (
     <>
@@ -56,7 +67,7 @@ export default function ProjectsSection() {
         .proj-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 16px;
+          gap: 14px;
         }
         @media(min-width:680px) {
           .proj-grid { grid-template-columns: 1fr 1fr; }
@@ -68,41 +79,22 @@ export default function ProjectsSection() {
         .proj-card:hover { transform: translateY(-3px); box-shadow: var(--shadow2); }
         .proj-card:active { transform: scale(0.97); }
         .mode-tile {
-          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
-                      background 0.3s ease;
+          min-width: 90px;
+          transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
         }
-        .mode-tile:hover { transform: scale(1.03); }
+        .mode-tile:hover { transform: scale(1.04); }
       `}</style>
 
-      <section id="projects" className="section" style={{
-        background: "var(--bg2)", transition: "background .3s",
-      }}>
-
-        {/* Mesh background */}
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
-          <div className="mesh-orb" style={{
-            width: "min(550px,85vw)", height: "min(550px,85vw)",
-            left: "-12%", top: "-15%",
-            background: "radial-gradient(circle, rgba(0,122,255,.06) 0%, transparent 70%)",
-            animation: "orb 26s ease-in-out infinite",
-          }} />
-          <div className="mesh-orb" style={{
-            width: "min(450px,75vw)", height: "min(450px,75vw)",
-            right: "-10%", bottom: "-10%",
-            background: "radial-gradient(circle, rgba(175,82,222,.07) 0%, transparent 70%)",
-            animation: "orbAlt 20s ease-in-out infinite",
-          }} />
-        </div>
-
-        <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
+      <section id="projects" className="section">
+        <div className="wrap">
 
           {/* Header */}
-          <div className="reveal" style={{ textAlign: "center", marginBottom: 52 }}>
+          <div className="reveal" style={{ textAlign: "center", marginBottom: 48 }}>
             <span className="chip chip-purple" style={{ marginBottom: 14 }}>المشاريع المنجزة</span>
             <h2 style={{
-              fontSize: "clamp(1.6rem, 4.5vw, 2.2rem)",
+              fontSize: "clamp(1.55rem, 4.5vw, 2.2rem)",
               fontWeight: 800, color: "var(--tx1)",
-              letterSpacing: "-.02em", marginBottom: 14, lineHeight: 1.15,
+              letterSpacing: "-.022em", marginBottom: 14, lineHeight: 1.14,
             }}>التطبيقات المستقلة</h2>
             <div style={{
               width: 32, height: 3, borderRadius: 2, margin: "0 auto",
@@ -110,42 +102,32 @@ export default function ProjectsSection() {
             }} />
           </div>
 
-          {/* Cards */}
           <div className="proj-grid">
             {PROJECTS.map((p, idx) => (
               <div key={p.id} className="card proj-card reveal" style={{
                 borderRadius: 24, overflow: "hidden", padding: 0,
                 transitionDelay: `${idx * 100}ms`,
+                display: "flex", flexDirection: "column",
               }}>
 
-                {/* Gradient header stripe */}
-                <div style={{
-                  height: 4,
-                  background: p.gradient,
-                  opacity: .9,
-                }} />
+                {/* Gradient top stripe */}
+                <div style={{ height: 4, background: p.gradient, opacity: .9, flexShrink: 0 }} />
 
-                {/* Card glow accent */}
                 <div style={{
-                  position: "absolute", top: -40, right: -40,
-                  width: 160, height: 160, borderRadius: "50%",
-                  background: `radial-gradient(circle, ${p.color.replace('var(--blue)', 'rgba(0,122,255,.08)').replace('var(--purple)', 'rgba(175,82,222,.08)')} 0%, transparent 70%)`,
-                  filter: "blur(30px)",
-                  pointerEvents: "none",
-                }} />
-
-                <div style={{ padding: "22px 20px 20px", position: "relative" }}>
+                  padding: "20px 20px 0",
+                  flex: 1, display: "flex", flexDirection: "column",
+                }}>
 
                   {/* Head */}
-                  <div style={{ marginBottom: 18 }}>
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
+                  <div style={{ marginBottom: 16 }}>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 10 }}>
                       <span className={`chip ${p.chip}`}>{p.badge}</span>
                       <span className="chip chip-gray">Android</span>
                     </div>
                     <h3 style={{
-                      fontSize: "clamp(1.15rem, 3.5vw, 1.45rem)",
+                      fontSize: "clamp(1.15rem, 3.5vw, 1.42rem)",
                       fontWeight: 800, color: "var(--tx1)", marginBottom: 4,
-                      letterSpacing: "-.02em", lineHeight: 1.2,
+                      letterSpacing: "-.022em", lineHeight: 1.2,
                     }}>{p.name}</h3>
                     <div style={{
                       fontSize: 11, fontWeight: 700, letterSpacing: .4,
@@ -154,22 +136,17 @@ export default function ProjectsSection() {
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
                       display: "inline-block",
-                    }}>
-                      {p.nameEn}
-                    </div>
+                    }}>{p.nameEn}</div>
                   </div>
 
-                  {/* Modes */}
-                  <div style={{
-                    display: "grid", gridTemplateColumns: "repeat(3,1fr)",
-                    gap: 8, marginBottom: 18,
-                  }}>
+                  {/* Mode tiles — horizontal scroll (App Store style) */}
+                  <div className="hscroll" style={{ marginBottom: 16 }}>
                     {p.modes.map(m => (
                       <div key={m.s} className="mode-tile inset" style={{
-                        padding: "11px 6px", textAlign: "center",
+                        padding: "10px 8px", textAlign: "center",
                         borderRadius: 14,
                       }}>
-                        <div style={{ fontSize: 18, marginBottom: 5 }}>{m.icon}</div>
+                        <div style={{ fontSize: 18, marginBottom: 4 }}>{m.icon}</div>
                         <div style={{
                           fontSize: 11, fontWeight: 700, color: "var(--tx1)",
                           marginBottom: 2, lineHeight: 1.3,
@@ -179,39 +156,45 @@ export default function ProjectsSection() {
                     ))}
                   </div>
 
-                  <div className="line" style={{ marginBottom: 16 }} />
+                  <div className="line" style={{ marginBottom: 14 }} />
 
-                  {/* Features */}
-                  <div style={{ marginBottom: 20 }}>
+                  {/* Features with soft dots */}
+                  <div style={{ marginBottom: 0, flex: 1 }}>
                     <div style={{
                       fontSize: 10.5, color: "var(--tx3)", fontWeight: 700,
-                      letterSpacing: .9, marginBottom: 11, textTransform: "uppercase",
+                      letterSpacing: .9, marginBottom: 10, textTransform: "uppercase",
                     }}>المميزات</div>
                     {p.features.map((f, i) => (
                       <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 9, marginBottom: 8 }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                          stroke={p.color} strokeWidth="2.8" style={{ flexShrink: 0, marginTop: 2 }}>
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
+                        <Dot color={p.color} />
                         <span style={{ fontSize: 13, color: "var(--tx2)", lineHeight: 1.45, fontWeight: 500 }}>{f}</span>
                       </div>
                     ))}
                   </div>
 
-                  {/* CTA */}
+                </div>
+
+                {/* Full-width vibrant gradient CTA — flush to bottom */}
+                <div style={{ padding: "16px 20px 20px" }}>
                   <a href={p.link} target="_blank" rel="noopener noreferrer"
                     className="btn"
                     style={{
-                      width: "100%", fontSize: 15, borderRadius: 16,
+                      width: "100%", fontSize: 15,
+                      borderRadius: 14, height: 48,
                       background: p.gradient, color: "#fff",
-                      boxShadow: `0 4px 20px ${p.color === "var(--blue)" ? "rgba(0,122,255,.28)" : "rgba(175,82,222,.28)"}`,
+                      boxShadow: `0 6px 24px ${p.glowColor}`,
                       border: "none",
-                    }}>
+                      transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.filter = "brightness(1.08)"; e.currentTarget.style.transform = "scale(1.01)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.filter = ""; e.currentTarget.style.transform = ""; }}
+                    onMouseDown={e => { e.currentTarget.style.transform = "scale(0.97)"; }}
+                    onMouseUp={e => { e.currentTarget.style.transform = ""; }}>
                     <TelegramIcon />
                     تحميل عبر تيلجرام
                   </a>
-
                 </div>
+
               </div>
             ))}
           </div>

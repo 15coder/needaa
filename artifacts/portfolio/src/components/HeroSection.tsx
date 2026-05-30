@@ -1,57 +1,82 @@
 interface Props { dark: boolean; }
 
-const DOTS = Array.from({ length: 28 }, (_, i) => ({
+const DOTS = Array.from({ length: 22 }, (_, i) => ({
   id: i,
   l: +(Math.random() * 100).toFixed(1),
   t: +(Math.random() * 100).toFixed(1),
-  s: +(Math.random() * 2 + 1).toFixed(1),
+  s: +(Math.random() * 1.8 + 0.8).toFixed(1),
   d: +(Math.random() * 12 + 8).toFixed(1),
   dl: +(Math.random() * 10).toFixed(1),
-  o: +(Math.random() * .08 + .02).toFixed(2),
+  o: +(Math.random() * .07 + .02).toFixed(2),
 }));
 
 function Ring({ size, dark }: { size: number; dark: boolean }) {
   return (
     <div style={{
-      width: size, height: size, borderRadius: "50%", padding: 3,
-      background: "linear-gradient(135deg, var(--blue) 0%, var(--purple) 60%, var(--teal) 100%)",
-      boxShadow: "0 0 48px var(--blue-glow), 0 8px 32px rgba(0,0,0,.18)",
+      width: size, height: size, borderRadius: "50%",
+      padding: 3,
+      background: "linear-gradient(135deg, rgba(0,122,255,.5) 0%, rgba(175,82,222,.5) 60%, rgba(90,200,250,.4) 100%)",
       flexShrink: 0,
-      transition: "box-shadow 0.4s cubic-bezier(0.16,1,0.3,1)",
+      position: "relative",
     }}>
+      {/* Glass ring effect */}
+      <div style={{
+        position: "absolute", inset: 0, borderRadius: "50%",
+        border: "2px solid rgba(255,255,255,0.60)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        zIndex: 1, pointerEvents: "none",
+      }} />
       <img src="/logo.webp" alt="نداء" style={{
         width: "100%", height: "100%",
         borderRadius: "50%", objectFit: "cover",
-        border: `3px solid ${dark ? "#000" : "#F2F2F7"}`,
-        transition: "border-color .3s",
+        border: `2.5px solid ${dark ? "rgba(0,0,0,.6)" : "rgba(240,240,248,.8)"}`,
+        transition: "border-color .35s",
       }} />
     </div>
   );
 }
 
-export default function HeroSection({ dark }: Props) {
+export default function HeroSection({ dark: _ }: Props) {
   return (
     <>
       <style>{`
         .hero-grid {
           display: flex;
           flex-direction: column;
-          gap: 32px;
+          gap: 28px;
         }
         .hero-logo-sm { display: flex; justify-content: center; }
         .hero-logo-lg { display: none; }
 
         @media (min-width: 780px) {
-          .hero-grid {
-            flex-direction: row;
-            align-items: center;
-            gap: 56px;
-          }
+          .hero-grid { flex-direction: row; align-items: center; gap: 52px; }
           .hero-logo-sm { display: none; }
           .hero-logo-lg {
             display: flex; flex-direction: column;
             align-items: center; gap: 14px; flex-shrink: 0;
           }
+        }
+
+        /* Hero CTA buttons — mobile: stack full-width; desktop: row */
+        .hero-cta-row {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .hero-cta-row .btn {
+          width: 100%;
+          justify-content: center;
+          border-radius: 14px;
+          height: 48px;
+          font-size: 15px;
+        }
+        @media (min-width: 480px) {
+          .hero-cta-row {
+            flex-direction: row;
+          }
+          .hero-cta-row .btn-blue  { flex: 65; }
+          .hero-cta-row .btn-outline { flex: 35; }
         }
 
         .edu-card {
@@ -69,52 +94,10 @@ export default function HeroSection({ dark }: Props) {
         position: "relative", minHeight: "100svh",
         display: "flex", alignItems: "center",
         overflow: "hidden",
-        transition: "background .3s",
-        background: dark
-          ? "#000"
-          : "#F2F2F7",
       }}>
 
-        {/* ── Dynamic Mesh Gradient ── */}
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
-          {/* Primary blue orb */}
-          <div className="mesh-orb" style={{
-            width: "min(600px,90vw)", height: "min(600px,90vw)",
-            right: "-15%", top: "-20%",
-            background: dark
-              ? "radial-gradient(circle, rgba(10,132,255,.18) 0%, rgba(10,132,255,.05) 50%, transparent 70%)"
-              : "radial-gradient(circle, rgba(0,122,255,.13) 0%, rgba(0,122,255,.04) 50%, transparent 70%)",
-            animation: "orb 22s ease-in-out infinite",
-          }} />
-          {/* Purple orb */}
-          <div className="mesh-orb" style={{
-            width: "min(400px,70vw)", height: "min(400px,70vw)",
-            left: "-12%", bottom: "5%",
-            background: dark
-              ? "radial-gradient(circle, rgba(191,90,242,.12) 0%, rgba(191,90,242,.03) 50%, transparent 70%)"
-              : "radial-gradient(circle, rgba(175,82,222,.09) 0%, rgba(175,82,222,.02) 50%, transparent 70%)",
-            animation: "orbAlt 28s ease-in-out infinite",
-          }} />
-          {/* Teal accent */}
-          <div className="mesh-orb" style={{
-            width: "min(280px,55vw)", height: "min(280px,55vw)",
-            left: "40%", top: "60%",
-            background: dark
-              ? "radial-gradient(circle, rgba(100,210,255,.08) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(90,200,250,.07) 0%, transparent 70%)",
-            animation: "orb 18s 4s ease-in-out infinite",
-          }} />
-          {/* Subtle noise layer */}
-          <div style={{
-            position: "absolute", inset: 0,
-            background: dark
-              ? "linear-gradient(135deg, rgba(10,132,255,.03) 0%, transparent 40%, rgba(191,90,242,.03) 100%)"
-              : "linear-gradient(135deg, rgba(0,122,255,.04) 0%, transparent 40%, rgba(175,82,222,.03) 100%)",
-          }} />
-        </div>
-
-        {/* Ambient dots */}
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+        {/* Subtle ambient dots */}
+        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}>
           {DOTS.map(d => (
             <div key={d.id} style={{
               position: "absolute", left: `${d.l}%`, top: `${d.t}%`,
@@ -128,7 +111,7 @@ export default function HeroSection({ dark }: Props) {
         {/* Main content */}
         <div className="wrap" style={{
           position: "relative", zIndex: 1,
-          paddingTop: "max(96px, calc(env(safe-area-inset-top, 0px) + 80px))",
+          paddingTop: "max(100px, calc(env(safe-area-inset-top, 0px) + 84px))",
           paddingBottom: 80,
           width: "100%",
         }}>
@@ -139,27 +122,28 @@ export default function HeroSection({ dark }: Props) {
 
               {/* Mobile logo */}
               <div className="hero-logo-sm" style={{ marginBottom: 28 }}>
-                <Ring size={100} dark={dark} />
+                <Ring size={96} dark={_} />
               </div>
 
-              {/* Chip */}
+              {/* Specialty chip */}
               <div className="anim-1" style={{ marginBottom: 16 }}>
                 <span className="chip chip-blue" style={{ fontSize: 12 }}>
                   <span style={{
                     width: 6, height: 6, borderRadius: "50%",
                     background: "var(--blue)", display: "inline-block",
-                    boxShadow: "0 0 6px var(--blue)",
+                    boxShadow: "0 0 8px var(--blue)",
                   }} />
                   أمن سيبراني · تحليل جنائي · تطوير تطبيقات
                 </span>
               </div>
 
-              {/* Name */}
+              {/* Name — tighter size for small screens */}
               <div className="anim-2" style={{ marginBottom: 14 }}>
                 <h1 style={{
-                  fontWeight: 800, lineHeight: 1.06,
-                  letterSpacing: "-.03em",
-                  fontSize: "clamp(2.5rem, 10vw, 4.2rem)",
+                  fontWeight: 800,
+                  lineHeight: 1.08,
+                  letterSpacing: "-.028em",
+                  fontSize: "clamp(2rem, 8.5vw, 3.8rem)",
                   color: "var(--tx1)",
                 }}>
                   نداء الرحمن
@@ -174,10 +158,10 @@ export default function HeroSection({ dark }: Props) {
               </div>
 
               {/* Bio */}
-              <div className="anim-3" style={{ marginBottom: 24 }}>
+              <div className="anim-3" style={{ marginBottom: 22 }}>
                 <p style={{
-                  fontSize: "clamp(14px, 3.5vw, 16.5px)",
-                  color: "var(--tx2)", lineHeight: 1.65, maxWidth: 440,
+                  fontSize: "clamp(14px, 3.5vw, 16px)",
+                  color: "var(--tx2)", lineHeight: 1.65, maxWidth: 420,
                   fontWeight: 500,
                 }}>
                   خبير في التحليل الجنائي الرقمي والأمن السيبراني وتطوير التطبيقات.
@@ -185,7 +169,7 @@ export default function HeroSection({ dark }: Props) {
               </div>
 
               {/* Education */}
-              <div className="anim-4" style={{ marginBottom: 26 }}>
+              <div className="anim-4" style={{ marginBottom: 24 }}>
                 {[
                   { icon: "🎓", txt: "دبلوم تقاني في هندسة الشبكات — جامعة حلب" },
                   { icon: "📜", txt: "شهادة في الأمن السيبراني — منصة إدراك" },
@@ -200,7 +184,7 @@ export default function HeroSection({ dark }: Props) {
               </div>
 
               {/* Stats */}
-              <div className="anim-5" style={{ marginBottom: 30 }}>
+              <div className="anim-5" style={{ marginBottom: 28 }}>
                 <div className="card" style={{
                   display: "inline-flex", borderRadius: 20,
                   overflow: "hidden", padding: 0,
@@ -211,11 +195,11 @@ export default function HeroSection({ dark }: Props) {
                     { n: "+١٠", l: "أداة جنائية" },
                   ].map((s, i) => (
                     <div key={i} style={{
-                      padding: "13px clamp(16px,4vw,28px)", textAlign: "center",
+                      padding: "12px clamp(14px,4vw,26px)", textAlign: "center",
                       borderRight: i > 0 ? ".5px solid var(--sep)" : "none",
                     }}>
                       <div style={{
-                        fontSize: "clamp(1.4rem,5vw,1.8rem)",
+                        fontSize: "clamp(1.3rem,5vw,1.75rem)",
                         fontWeight: 900, lineHeight: 1, marginBottom: 4,
                         background: "linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%)",
                         WebkitBackgroundClip: "text",
@@ -231,10 +215,10 @@ export default function HeroSection({ dark }: Props) {
               </div>
 
               {/* CTAs */}
-              <div className="anim-6" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div className="anim-6 hero-cta-row">
                 <a href="#projects" className="btn btn-blue"
                   onClick={e => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}
-                  style={{ textDecoration: "none", borderRadius: 16 }}>
+                  style={{ textDecoration: "none" }}>
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
@@ -242,7 +226,7 @@ export default function HeroSection({ dark }: Props) {
                 </a>
                 <a href="#contact" className="btn btn-outline"
                   onClick={e => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                  style={{ textDecoration: "none", borderRadius: 16 }}>
+                  style={{ textDecoration: "none" }}>
                   تواصل معي
                 </a>
               </div>
@@ -251,7 +235,7 @@ export default function HeroSection({ dark }: Props) {
 
             {/* ── Desktop logo ── */}
             <div className="hero-logo-lg anim-1">
-              <Ring size={164} dark={dark} />
+              <Ring size={160} dark={_} />
               <div style={{ textAlign: "center" }}>
                 <div style={{ fontSize: 11, color: "var(--tx3)", marginBottom: 4, fontWeight: 500 }}>
                   Digital Forensics Specialist
@@ -262,9 +246,7 @@ export default function HeroSection({ dark }: Props) {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
-                }}>
-                  Cybersecurity · Android · GSM
-                </div>
+                }}>Cybersecurity · Android · GSM</div>
               </div>
             </div>
 
@@ -275,7 +257,7 @@ export default function HeroSection({ dark }: Props) {
         <div style={{
           position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)",
           display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
-          opacity: .18, pointerEvents: "none",
+          opacity: .15, pointerEvents: "none",
         }}>
           <div style={{ width: 1, height: 28, background: `linear-gradient(180deg,transparent,var(--tx3))` }} />
           <div style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--tx3)" }} />
