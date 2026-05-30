@@ -1,32 +1,30 @@
 interface Props { dark: boolean; }
 
-const DOTS = Array.from({ length: 18 }, (_, i) => ({
-  id: i,
-  l: +(Math.random() * 100).toFixed(1),
-  t: +(Math.random() * 100).toFixed(1),
-  s: +(Math.random() * 1.6 + 0.8).toFixed(1),
-  d: +(Math.random() * 14 + 8).toFixed(1),
-  dl: +(Math.random() * 10).toFixed(1),
-  o: +(Math.random() * .06 + .02).toFixed(2),
-}));
-
 function Ring({ size, dark }: { size: number; dark: boolean }) {
-  const border = size * 0.032;
+  const pad = Math.round(size * 0.034);
+  const inner = Math.round(size * 0.028);
   return (
-    <div style={{
+    <div className="anim-ring" style={{
       width: size, height: size, borderRadius: "50%",
-      padding: border,
-      background: "linear-gradient(135deg, rgba(0,122,255,.55) 0%, rgba(175,82,222,.55) 55%, rgba(90,200,250,.45) 100%)",
+      padding: pad,
+      background: "linear-gradient(145deg, rgba(0,122,255,.70) 0%, rgba(175,82,222,.65) 55%, rgba(90,200,250,.60) 100%)",
       flexShrink: 0,
-      boxShadow: `0 0 0 1.5px rgba(255,255,255,0.55), 0 4px 24px rgba(0,122,255,.18)`,
+      boxShadow: `0 0 0 1.5px rgba(255,255,255,0.50),
+                  0 8px 40px rgba(0,122,255,.26),
+                  0 2px 12px rgba(175,82,222,.18)`,
     }}>
-      <img src="/logo.webp" alt="نداء" style={{
-        width: "100%", height: "100%",
-        borderRadius: "50%", objectFit: "cover",
-        border: `${border}px solid ${dark ? "rgba(0,0,0,.55)" : "rgba(240,240,248,.85)"}`,
-        transition: "border-color .35s",
-        display: "block",
-      }} />
+      <div style={{
+        width: "100%", height: "100%", borderRadius: "50%",
+        padding: inner,
+        background: dark ? "rgba(8,8,15,.88)" : "rgba(242,242,252,.90)",
+        transition: "background .35s",
+      }}>
+        <img src="/logo.webp" alt="نداء" style={{
+          width: "100%", height: "100%",
+          borderRadius: "50%", objectFit: "cover",
+          display: "block",
+        }} />
+      </div>
     </div>
   );
 }
@@ -35,67 +33,60 @@ export default function HeroSection({ dark }: Props) {
   return (
     <>
       <style>{`
-        /* Mobile: logo above name, stacked */
         .hero-layout {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 20px;
+          gap: 0;
           text-align: center;
         }
-        .hero-text { width: 100%; }
         .hero-logo-desktop { display: none; }
+        .hero-logo-mobile  { margin-bottom: 28px; }
 
-        /* Desktop: side-by-side */
         @media (min-width: 760px) {
           .hero-layout {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
             text-align: right;
-            gap: 48px;
+            gap: 56px;
           }
-          .hero-text { flex: 1; }
-          .hero-logo-mobile { display: none; }
+          .hero-logo-mobile  { display: none; }
           .hero-logo-desktop {
             display: flex; flex-direction: column;
-            align-items: center; gap: 12px; flex-shrink: 0;
+            align-items: center; gap: 14px; flex-shrink: 0;
+            margin-bottom: 0;
           }
         }
 
-        /* Buttons */
         .hero-btns {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 11px;
           width: 100%;
+          margin-top: 32px;
         }
         .hero-btns .btn {
           width: 100%;
-          height: 48px;
-          font-size: 15.5px;
-          border-radius: 14px;
+          height: 52px;
+          font-size: 16px;
+          border-radius: 16px;
           justify-content: center;
         }
-        @media(min-width:480px) {
+        @media(min-width:460px) {
           .hero-btns { flex-direction: row; }
-          .hero-btns .btn-blue   { flex: 3; }
+          .hero-btns .btn-blue    { flex: 3; }
           .hero-btns .btn-outline { flex: 2; }
-        }
-        @media(min-width:760px) {
-          .hero-btns { width: auto; }
-          .hero-btns .btn { width: auto; }
         }
 
         .edu-pill {
-          display: flex; align-items: center; gap: 10px;
-          padding: 11px 16px; border-radius: 16px;
-          margin-bottom: 8px;
-          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
-                      box-shadow 0.4s cubic-bezier(0.16,1,0.3,1);
-          text-align: right;
+          display: flex; align-items: center; gap: 12px;
+          padding: 13px 18px; border-radius: 18px;
+          margin-bottom: 10px; text-align: right;
+          transition: transform 0.45s cubic-bezier(0.16,1,0.3,1),
+                      box-shadow 0.45s cubic-bezier(0.16,1,0.3,1);
         }
-        .edu-pill:hover { transform: translateY(-1px); box-shadow: var(--shadow2); }
+        .edu-pill:hover { transform: translateY(-2px) scale(1.01); box-shadow: var(--shadow2); }
         .edu-pill:last-child { margin-bottom: 0; }
       `}</style>
 
@@ -104,57 +95,44 @@ export default function HeroSection({ dark }: Props) {
         display: "flex", alignItems: "center",
         overflow: "hidden",
       }}>
-
-        {/* Ambient dots */}
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}>
-          {DOTS.map(d => (
-            <div key={d.id} style={{
-              position: "absolute", left: `${d.l}%`, top: `${d.t}%`,
-              width: d.s, height: d.s, borderRadius: "50%",
-              background: "var(--blue)", opacity: d.o,
-              animation: `dot ${d.d}s ${d.dl}s ease-in-out infinite`,
-            }} />
-          ))}
-        </div>
-
         <div className="wrap" style={{
           position: "relative", zIndex: 1,
-          paddingTop: "max(96px, calc(env(safe-area-inset-top,0px) + 80px))",
-          paddingBottom: 80, width: "100%",
+          paddingTop: "max(104px, calc(env(safe-area-inset-top,0px) + 88px))",
+          paddingBottom: 90, width: "100%",
         }}>
           <div className="hero-layout">
 
-            {/* Mobile: logo on top, centered */}
-            <div className="hero-logo-mobile anim-1">
-              <Ring size={110} dark={dark} />
+            {/* Mobile logo — big & centered */}
+            <div className="hero-logo-mobile">
+              <Ring size={148} dark={dark} />
             </div>
 
-            {/* Text */}
-            <div className="hero-text">
+            {/* Text block */}
+            <div className="hero-text" style={{ width: "100%" }}>
 
-              {/* Name */}
-              <div className="anim-1" style={{ marginBottom: 10 }}>
+              {/* Name — single line with gradient */}
+              <div className="anim-1" style={{ marginBottom: 16 }}>
                 <h1 style={{
-                  fontWeight: 800, lineHeight: 1.08, letterSpacing: "-.028em",
-                  fontSize: "clamp(2.1rem, 9vw, 4rem)",
-                  color: "var(--tx1)",
+                  fontWeight: 900,
+                  lineHeight: 1.06,
+                  letterSpacing: "-.03em",
+                  fontSize: "clamp(1.9rem, 8.5vw, 4rem)",
+                  whiteSpace: "nowrap",
+                  background: "linear-gradient(135deg, var(--tx1) 0%, var(--tx1) 38%, var(--blue) 60%, var(--purple) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
                 }}>
-                  نداء الرحمن
-                  <br />
-                  <span style={{
-                    background: "linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%)",
-                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}>عبود</span>
+                  نداء الرحمن عبود
                 </h1>
               </div>
 
               {/* Bio */}
-              <div className="anim-2" style={{ marginBottom: 22 }}>
+              <div className="anim-2" style={{ marginBottom: 28 }}>
                 <p style={{
-                  fontSize: "clamp(14px, 3.5vw, 16px)",
-                  color: "var(--tx2)", lineHeight: 1.65,
-                  maxWidth: 420, fontWeight: 500,
+                  fontSize: "clamp(14.5px, 3.6vw, 16.5px)",
+                  color: "var(--tx2)", lineHeight: 1.7,
+                  maxWidth: 440, fontWeight: 500,
                   margin: "0 auto",
                 }}>
                   خبير في التحليل الجنائي الرقمي والأمن السيبراني وتطوير التطبيقات.
@@ -162,14 +140,14 @@ export default function HeroSection({ dark }: Props) {
               </div>
 
               {/* Education */}
-              <div className="anim-3" style={{ marginBottom: 26 }}>
+              <div className="anim-3" style={{ marginBottom: 0 }}>
                 {[
                   { icon: "🎓", txt: "دبلوم تقاني في هندسة الشبكات — جامعة حلب" },
                   { icon: "📜", txt: "شهادة في الأمن السيبراني — منصة إدراك" },
                 ].map((e, i) => (
                   <div key={i} className="card edu-pill">
-                    <span style={{ fontSize: 15, flexShrink: 0 }}>{e.icon}</span>
-                    <span style={{ fontSize: 13, color: "var(--tx2)", lineHeight: 1.4, fontWeight: 500 }}>
+                    <span style={{ fontSize: 18, flexShrink: 0 }}>{e.icon}</span>
+                    <span style={{ fontSize: 13.5, color: "var(--tx2)", lineHeight: 1.45, fontWeight: 500 }}>
                       {e.txt}
                     </span>
                   </div>
@@ -181,7 +159,7 @@ export default function HeroSection({ dark }: Props) {
                 <a href="#projects" className="btn btn-blue"
                   onClick={e => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}
                   style={{ textDecoration: "none" }}>
-                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                   عرض المشاريع
@@ -192,21 +170,20 @@ export default function HeroSection({ dark }: Props) {
                   تواصل معي
                 </a>
               </div>
-
             </div>
 
-            {/* Desktop: logo on side */}
-            <div className="hero-logo-desktop anim-1">
-              <Ring size={168} dark={dark} />
-              <div style={{ textAlign: "center", marginTop: 10 }}>
-                <div style={{ fontSize: 11, color: "var(--tx3)", marginBottom: 4, fontWeight: 500 }}>
+            {/* Desktop logo — side */}
+            <div className="hero-logo-desktop">
+              <Ring size={210} dark={dark} />
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 11.5, color: "var(--tx3)", marginBottom: 5, fontWeight: 600 }}>
                   Digital Forensics Specialist
                 </div>
                 <div style={{
-                  fontSize: 11, fontWeight: 700,
+                  fontSize: 11, fontWeight: 800,
                   background: "linear-gradient(90deg, var(--blue), var(--purple))",
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
+                  backgroundClip: "text", letterSpacing: .5,
                 }}>Cybersecurity · Android · GSM</div>
               </div>
             </div>
@@ -216,12 +193,13 @@ export default function HeroSection({ dark }: Props) {
 
         {/* Scroll cue */}
         <div style={{
-          position: "absolute", bottom: 22, left: "50%", transform: "translateX(-50%)",
-          display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
-          opacity: .15, pointerEvents: "none",
+          position: "absolute", bottom: 26, left: "50%", transform: "translateX(-50%)",
+          display: "flex", flexDirection: "column", alignItems: "center", gap: 7,
+          opacity: .18, pointerEvents: "none",
+          animation: "fadeUp 1.2s 1.4s both var(--spring)",
         }}>
-          <div style={{ width: 1, height: 28, background: "linear-gradient(180deg,transparent,var(--tx3))" }} />
-          <div style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--tx3)" }} />
+          <div style={{ width: 1, height: 32, background: "linear-gradient(180deg,transparent,var(--tx3))" }} />
+          <div style={{ width: 3.5, height: 3.5, borderRadius: "50%", background: "var(--tx3)" }} />
         </div>
       </section>
     </>

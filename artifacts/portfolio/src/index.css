@@ -31,7 +31,7 @@
   --glass-card:    rgba(255,255,255,.40);
   --glass-card-b:  rgba(255,255,255,.30);
   --shadow:        0 8px 32px rgba(31,38,135,.04), 0 2px 8px rgba(0,0,0,.03);
-  --shadow2:       0 16px 48px rgba(31,38,135,.08), 0 4px 16px rgba(0,0,0,.05);
+  --shadow2:       0 20px 60px rgba(31,38,135,.10), 0 6px 20px rgba(0,0,0,.06);
 
   --nav-bg:      rgba(240,240,248,.78);
   --nav-b:       rgba(255,255,255,.36);
@@ -74,7 +74,7 @@
   --glass-card:    rgba(255,255,255,.05);
   --glass-card-b:  rgba(255,255,255,.10);
   --shadow:        0 8px 32px rgba(0,0,0,.28), 0 2px 8px rgba(0,0,0,.20);
-  --shadow2:       0 16px 48px rgba(0,0,0,.42), 0 4px 16px rgba(0,0,0,.28);
+  --shadow2:       0 20px 60px rgba(0,0,0,.48), 0 6px 20px rgba(0,0,0,.30);
 
   --nav-bg:      rgba(12,12,20,.80);
   --nav-b:       rgba(255,255,255,.09);
@@ -109,7 +109,7 @@ button { font-family: var(--font); cursor: pointer; }
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
-  transition: box-shadow 0.4s var(--spring), transform 0.4s var(--spring);
+  transition: box-shadow 0.5s var(--spring), transform 0.5s var(--spring);
 }
 .card::before {
   content: '';
@@ -121,9 +121,9 @@ button { font-family: var(--font); cursor: pointer; }
 }
 .card:hover {
   box-shadow: var(--shadow2);
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.005);
 }
-.card:active { transform: scale(0.97); }
+.card:active { transform: scale(0.97) !important; transition-duration: 0.15s !important; }
 
 /* ─── INSET ──────────────────────────────────────── */
 .inset {
@@ -155,13 +155,13 @@ button { font-family: var(--font); cursor: pointer; }
   user-select: none;
   letter-spacing: -.01em;
 }
-.btn:active { transform: scale(0.97); }
+.btn:active { transform: scale(0.95) !important; transition-duration: 0.12s !important; }
 
 .btn-blue {
   background: var(--blue); color: #fff;
   box-shadow: 0 4px 18px var(--blue-glow), inset 0 1px 0 rgba(255,255,255,.22);
 }
-.btn-blue:hover { filter: brightness(1.08); }
+.btn-blue:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 8px 28px var(--blue-glow); }
 
 .btn-outline {
   background: var(--glass-card); color: var(--tx1);
@@ -175,7 +175,7 @@ button { font-family: var(--font); cursor: pointer; }
   background: linear-gradient(135deg, #30D158 0%, #34C759 100%); color: #fff;
   box-shadow: 0 4px 18px var(--green-glow), inset 0 1px 0 rgba(255,255,255,.2);
 }
-.btn-green:hover { filter: brightness(1.07); }
+.btn-green:hover { filter: brightness(1.07); transform: translateY(-1px); }
 
 /* ─── CHIPS ──────────────────────────────────────── */
 .chip {
@@ -205,13 +205,13 @@ button { font-family: var(--font); cursor: pointer; }
 
 /* ─── SECTION ────────────────────────────────────── */
 .section {
-  padding: 80px 0;
+  padding: 96px 0;
   position: relative;
   background: transparent;
 }
-@media(max-width:639px) { .section { padding: 60px 0; } }
+@media(max-width:639px) { .section { padding: 72px 0; } }
 
-/* ─── MESH ORB (for per-section supplemental orbs) ── */
+/* ─── MESH ORB ───────────────────────────────────── */
 .mesh-orb {
   position: absolute;
   border-radius: 50%;
@@ -258,7 +258,7 @@ button { font-family: var(--font); cursor: pointer; }
   animation: slideDown 0.4s var(--spring);
 }
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px) scale(.98); }
+  from { opacity: 0; transform: translateY(-12px) scale(.97); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -272,41 +272,60 @@ button { font-family: var(--font); cursor: pointer; }
   -webkit-tap-highlight-color: transparent;
 }
 .tbtn:hover  { background: var(--fill2); filter: brightness(.92); }
-.tbtn:active { transform: scale(.90); }
+.tbtn:active { transform: scale(.88); transition-duration: .12s; }
 
 /* ─── HERO ANIMATIONS ────────────────────────────── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
 }
-.anim-1 { animation: fadeUp 0.65s 0.10s both var(--spring); }
-.anim-2 { animation: fadeUp 0.65s 0.22s both var(--spring); }
-.anim-3 { animation: fadeUp 0.65s 0.34s both var(--spring); }
-.anim-4 { animation: fadeUp 0.65s 0.46s both var(--spring); }
-.anim-5 { animation: fadeUp 0.65s 0.56s both var(--spring); }
-.anim-6 { animation: fadeUp 0.65s 0.66s both var(--spring); }
+@keyframes fadeUpFast {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+@keyframes ringIn {
+  from { opacity: 0; transform: scale(0.78); filter: blur(8px); }
+  to   { opacity: 1; transform: scale(1);    filter: blur(0); }
+}
+@keyframes ringFloat {
+  0%,100% { transform: translateY(0px);    }
+  45%     { transform: translateY(-9px);   }
+  75%     { transform: translateY(-4px);   }
+}
+
+.anim-ring { animation: ringIn 0.80s 0.05s both var(--spring), ringFloat 5.5s 1.0s ease-in-out infinite; }
+.anim-1    { animation: fadeUp 0.70s 0.18s both var(--spring); }
+.anim-2    { animation: fadeUp 0.70s 0.30s both var(--spring); }
+.anim-3    { animation: fadeUp 0.70s 0.42s both var(--spring); }
+.anim-4    { animation: fadeUp 0.70s 0.54s both var(--spring); }
+.anim-5    { animation: fadeUp 0.70s 0.64s both var(--spring); }
+.anim-6    { animation: fadeUp 0.70s 0.74s both var(--spring); }
 
 /* ─── ORB KEYFRAMES ──────────────────────────────── */
 @keyframes orb {
   0%,100% { transform: translate(0,0) scale(1); }
-  33%     { transform: translate(20px,-18px) scale(1.05); }
-  66%     { transform: translate(-12px,14px) scale(.96); }
+  33%     { transform: translate(22px,-20px) scale(1.06); }
+  66%     { transform: translate(-14px,16px) scale(.96); }
 }
 @keyframes orbAlt {
   0%,100% { transform: translate(0,0) scale(1); }
-  40%     { transform: translate(-16px,20px) scale(1.07); }
-  70%     { transform: translate(14px,-12px) scale(.95); }
+  40%     { transform: translate(-18px,22px) scale(1.08); }
+  70%     { transform: translate(16px,-14px) scale(.95); }
 }
 @keyframes dot {
-  0%,100% { transform: translateY(0); opacity: var(--op,.05); }
+  0%,100% { transform: translateY(0);   opacity: var(--op,.05); }
   50%     { transform: translateY(-9px); opacity: calc(var(--op,.05)*1.8); }
 }
 
 /* ─── SCROLL REVEAL ──────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(28px); }
+.reveal {
+  opacity: 0;
+  transform: translateY(32px) scale(0.97);
+  transition: opacity 0.75s var(--spring), transform 0.75s var(--spring);
+}
 .reveal.in {
-  opacity: 1; transform: translateY(0);
-  transition: opacity 0.7s var(--spring), transform 0.7s var(--spring);
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* ─── HORIZONTAL SCROLL STRIP ─────────────────────── */
