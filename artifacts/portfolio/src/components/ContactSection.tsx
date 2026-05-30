@@ -3,36 +3,58 @@ export default function ContactSection() {
     <>
       <style>{`
         .contact-grid {
-          display:grid;
-          grid-template-columns:1fr;
-          gap:12px;
-          max-width:640px;
-          margin:0 auto;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 14px;
+          max-width: 640px;
+          margin: 0 auto;
         }
-        @media(min-width:520px){
-          .contact-grid { grid-template-columns:1fr 1fr; }
+        @media(min-width:520px) {
+          .contact-grid { grid-template-columns: 1fr 1fr; }
         }
+        .contact-card {
+          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                      box-shadow 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .contact-card:hover { transform: translateY(-2px); box-shadow: var(--shadow2); }
+        .contact-card:active { transform: scale(0.97); }
       `}</style>
 
-      <section id="contact" className="section"
-        style={{
-          background: "var(--bg)",
-          paddingBottom: "max(72px, calc(env(safe-area-inset-bottom,0px) + 56px))",
-          transition: "background .25s",
-        }}>
-        <div className="wrap">
+      <section id="contact" className="section" style={{
+        background: "var(--bg)",
+        paddingBottom: "max(80px, calc(env(safe-area-inset-bottom,0px) + 60px))",
+        transition: "background .3s",
+      }}>
+
+        {/* Mesh background */}
+        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
+          <div className="mesh-orb" style={{
+            width: "min(480px,80vw)", height: "min(480px,80vw)",
+            left: "20%", top: "-20%",
+            background: "radial-gradient(circle, rgba(52,199,89,.07) 0%, transparent 70%)",
+            animation: "orb 22s ease-in-out infinite",
+          }} />
+          <div className="mesh-orb" style={{
+            width: "min(360px,65vw)", height: "min(360px,65vw)",
+            right: "-8%", bottom: "0%",
+            background: "radial-gradient(circle, rgba(0,122,255,.06) 0%, transparent 70%)",
+            animation: "orbAlt 18s ease-in-out infinite",
+          }} />
+        </div>
+
+        <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
 
           {/* Header */}
-          <div className="reveal" style={{ textAlign: "center", marginBottom: 44 }}>
-            <span className="chip chip-green" style={{ marginBottom: 12 }}>تواصل مباشر</span>
+          <div className="reveal" style={{ textAlign: "center", marginBottom: 52 }}>
+            <span className="chip chip-green" style={{ marginBottom: 14 }}>تواصل مباشر</span>
             <h2 style={{
-              fontSize: "clamp(1.5rem, 4.5vw, 2.1rem)",
+              fontSize: "clamp(1.6rem, 4.5vw, 2.2rem)",
               fontWeight: 800, color: "var(--tx1)",
-              letterSpacing: "-.02em", marginBottom: 12,
+              letterSpacing: "-.02em", marginBottom: 14, lineHeight: 1.15,
             }}>قنوات التواصل</h2>
             <div style={{
-              width: 30, height: 3, borderRadius: 2, margin: "0 auto",
-              background: "linear-gradient(90deg,var(--green),var(--blue))",
+              width: 32, height: 3, borderRadius: 2, margin: "0 auto",
+              background: "linear-gradient(90deg, var(--green), var(--blue))",
             }} />
           </div>
 
@@ -40,11 +62,21 @@ export default function ContactSection() {
           <div className="contact-grid">
 
             {/* Email */}
-            <div className="card reveal" style={{ padding: "22px 18px", borderRadius: 22 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+            <div className="card contact-card reveal" style={{ padding: "24px 20px", borderRadius: 24 }}>
+
+              {/* Glow */}
+              <div style={{
+                position: "absolute", top: -30, right: -30,
+                width: 100, height: 100, borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(0,122,255,.10) 0%, transparent 70%)",
+                filter: "blur(20px)", pointerEvents: "none",
+              }} />
+
+              <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18, position: "relative" }}>
                 <div style={{
-                  width: 44, height: 44, borderRadius: 11, flexShrink: 0,
-                  background: "var(--blue-bg)", fontSize: 0,
+                  width: 46, height: 46, borderRadius: 13, flexShrink: 0,
+                  background: "var(--blue-bg)",
+                  border: "1px solid rgba(0,122,255,.15)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
                   <svg width="20" height="20" fill="none" stroke="var(--blue)" strokeWidth="1.7" viewBox="0 0 24 24">
@@ -53,14 +85,14 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "var(--tx1)" }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "var(--tx1)", letterSpacing: "-.01em" }}>
                     البريد الإلكتروني
                   </div>
                   <div style={{ fontSize: 11, color: "var(--blue)", fontWeight: 700 }}>Email</div>
                 </div>
               </div>
 
-              <div className="inset" style={{ padding: "9px 12px", marginBottom: 16, direction: "ltr", textAlign: "left" }}>
+              <div className="inset" style={{ padding: "10px 13px", marginBottom: 18, direction: "ltr", textAlign: "left" }}>
                 <span style={{ fontSize: 11.5, color: "var(--tx2)", fontFamily: "monospace" }}>
                   needaaalrahman00101@gmail.com
                 </span>
@@ -68,17 +100,27 @@ export default function ContactSection() {
 
               <a href="mailto:needaaalrahman00101@gmail.com"
                 className="btn btn-blue"
-                style={{ width: "100%", height: 40, fontSize: 14 }}>
+                style={{ width: "100%", height: 42, fontSize: 14, borderRadius: 16 }}>
                 إرسال بريد
               </a>
             </div>
 
             {/* WhatsApp */}
-            <div className="card reveal" style={{ padding: "22px 18px", borderRadius: 22, transitionDelay: "80ms" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+            <div className="card contact-card reveal" style={{ padding: "24px 20px", borderRadius: 24, transitionDelay: "80ms" }}>
+
+              {/* Glow */}
+              <div style={{
+                position: "absolute", top: -30, right: -30,
+                width: 100, height: 100, borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(52,199,89,.10) 0%, transparent 70%)",
+                filter: "blur(20px)", pointerEvents: "none",
+              }} />
+
+              <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18, position: "relative" }}>
                 <div style={{
-                  width: 44, height: 44, borderRadius: 11, flexShrink: 0,
+                  width: 46, height: 46, borderRadius: 13, flexShrink: 0,
                   background: "rgba(52,199,89,.11)",
+                  border: "1px solid rgba(52,199,89,.18)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--green)">
@@ -86,12 +128,12 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "var(--tx1)" }}>واتساب</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "var(--tx1)", letterSpacing: "-.01em" }}>واتساب</div>
                   <div style={{ fontSize: 11, color: "var(--green)", fontWeight: 700 }}>WhatsApp</div>
                 </div>
               </div>
 
-              <div className="inset" style={{ padding: "9px 12px", marginBottom: 16, direction: "ltr", textAlign: "left" }}>
+              <div className="inset" style={{ padding: "10px 13px", marginBottom: 18, direction: "ltr", textAlign: "left" }}>
                 <span style={{ fontSize: 12, color: "var(--tx2)", fontFamily: "monospace" }}>
                   +963 980 362 204
                 </span>
@@ -99,7 +141,7 @@ export default function ContactSection() {
 
               <a href="https://wa.me/963980362204" target="_blank" rel="noopener noreferrer"
                 className="btn btn-green"
-                style={{ width: "100%", height: 40, fontSize: 14 }}>
+                style={{ width: "100%", height: 42, fontSize: 14, borderRadius: 16 }}>
                 بدء المحادثة
               </a>
             </div>
@@ -107,26 +149,26 @@ export default function ContactSection() {
           </div>
 
           {/* Footer */}
-          <div style={{ maxWidth: 640, margin: "48px auto 0" }}>
-            <div className="line" style={{ marginBottom: 24 }} />
+          <div style={{ maxWidth: 640, margin: "56px auto 0" }}>
+            <div className="line" style={{ marginBottom: 26 }} />
             <div style={{
               display: "flex", justifyContent: "space-between",
-              alignItems: "center", flexWrap: "wrap", gap: 12,
+              alignItems: "center", flexWrap: "wrap", gap: 14,
             }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
                 <img src="/logo.webp" alt=""
-                  style={{ width: 28, height: 28, borderRadius: "50%", objectFit: "cover" }} />
+                  style={{ width: 30, height: 30, borderRadius: "50%", objectFit: "cover" }} />
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: "var(--tx1)" }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: "var(--tx1)", letterSpacing: "-.01em" }}>
                     نداء الرحمن عبود
                   </div>
-                  <div style={{ fontSize: 11, color: "var(--tx3)", fontWeight: 500 }}>
+                  <div style={{ fontSize: 11, color: "var(--tx3)", fontWeight: 500, marginTop: 2 }}>
                     Digital Forensics & Software Engineering
                   </div>
                 </div>
               </div>
-              <div style={{ fontSize: 11, color: "var(--tx3)" }}>
-                جميع الحقوق محفوظة © 2024
+              <div style={{ fontSize: 11, color: "var(--tx3)", fontWeight: 500 }}>
+                جميع الحقوق محفوظة © 2025
               </div>
             </div>
           </div>
