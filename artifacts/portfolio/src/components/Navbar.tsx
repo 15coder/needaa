@@ -8,118 +8,118 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const navRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const scrollTo = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
   };
 
   return (
-    <nav
-      ref={navRef}
-      style={{
-        position: "fixed",
-        top: 0,
-        right: 0,
-        left: 0,
-        zIndex: 1000,
-        transition: "all 0.4s ease",
-        background: scrolled
-          ? "rgba(2, 4, 8, 0.92)"
-          : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled
-          ? "1px solid rgba(0,255,204,0.1)"
-          : "1px solid transparent",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{
-              width: 32, height: 32, borderRadius: 6,
-              background: "linear-gradient(135deg, rgba(0,255,204,0.2), rgba(0,170,255,0.1))",
-              border: "1px solid rgba(0,255,204,0.4)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <span style={{ color: "var(--neon-green)", fontSize: 14, fontFamily: "var(--font-mono)" }}>N</span>
-            </div>
-            <span style={{
-              color: "var(--neon-green)",
-              fontWeight: 700,
-              fontSize: 15,
-              letterSpacing: 1,
-              fontFamily: "var(--font-arabic)",
-            }}>
-              نداء عبود
-            </span>
-          </div>
+    <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
+      <div className="section-container">
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }} className="hidden md:flex">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                className="nav-item"
-                onClick={() => scrollTo(link.href)}
-                style={{ background: "none", border: "none", fontFamily: "var(--font-arabic)" }}
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
-
+          {/* Logo */}
           <button
-            style={{
-              background: "none", border: "none",
-              color: "var(--neon-green)", cursor: "pointer",
-              display: "flex", flexDirection: "column", gap: 4, padding: 8,
-            }}
-            className="md:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => scrollTo("#hero")}
+            style={{ display: "flex", alignItems: "center", gap: 12, background: "none", border: "none", cursor: "pointer", padding: 0 }}
           >
-            {[0,1,2].map(i => (
-              <span key={i} style={{
-                display: "block", width: 20, height: 2,
-                background: "var(--neon-green)",
-                transition: "all 0.3s",
-                transform: menuOpen
-                  ? i === 0 ? "rotate(45deg) translateY(8px)" : i === 2 ? "rotate(-45deg) translateY(-8px)" : "scaleX(0)"
-                  : "none",
-              }} />
-            ))}
+            <img
+              src="/logo.webp"
+              alt="شعار نداء"
+              style={{ width: 42, height: 42, borderRadius: "50%", objectFit: "cover", display: "block" }}
+            />
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color: "#f8fafc", lineHeight: 1.2 }}>نداء الرحمن</div>
+              <div style={{ fontSize: 11, color: "var(--logo-blue)", fontWeight: 500 }}>عبود</div>
+            </div>
           </button>
-        </div>
 
-        {menuOpen && (
-          <div style={{
-            padding: "12px 0 16px",
-            borderTop: "1px solid rgba(0,255,204,0.1)",
-            display: "flex", flexDirection: "column", gap: 4,
-          }}>
+          {/* Desktop nav */}
+          <div style={{ display: "flex", alignItems: "center", gap: 2 }} className="hidden md:flex">
             {navLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
                 style={{
-                  background: "none", border: "none",
-                  color: "rgba(200,230,220,0.8)",
+                  background: "none", border: "none", cursor: "pointer",
+                  color: "rgba(203,213,225,0.75)",
                   fontFamily: "var(--font-arabic)",
-                  fontSize: 14, padding: "10px 12px",
-                  textAlign: "right", cursor: "pointer",
+                  fontSize: 14, fontWeight: 600,
+                  padding: "8px 16px", borderRadius: 8,
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.color = "#f8fafc";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.color = "rgba(203,213,225,0.75)";
+                  e.currentTarget.style.background = "none";
+                }}
+              >
+                {link.label}
+              </button>
+            ))}
+            <a
+              href="#contact"
+              onClick={e => { e.preventDefault(); scrollTo("#contact"); }}
+              className="btn-primary"
+              style={{ padding: "9px 22px", fontSize: 13, marginRight: 8, borderRadius: 8 }}
+            >
+              تواصل معي
+            </a>
+          </div>
+
+          {/* Mobile menu toggle */}
+          <button
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}
+            className="md:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="القائمة"
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: 5, width: 22 }}>
+              {[0,1,2].map(i => (
+                <span key={i} style={{
+                  display: "block", height: 2, borderRadius: 1,
+                  background: menuOpen ? "var(--logo-blue)" : "rgba(203,213,225,0.7)",
+                  width: i === 1 ? "75%" : "100%",
+                  transition: "all 0.25s",
+                }} />
+              ))}
+            </div>
+          </button>
+        </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div style={{
+            borderTop: "1px solid rgba(41,168,224,0.12)",
+            padding: "12px 0 16px",
+            display: "flex", flexDirection: "column", gap: 2,
+          }}>
+            {navLinks.map(link => (
+              <button
+                key={link.href}
+                onClick={() => scrollTo(link.href)}
+                style={{
+                  background: "none", border: "none", cursor: "pointer",
+                  color: "rgba(203,213,225,0.8)",
+                  fontFamily: "var(--font-arabic)",
+                  fontSize: 15, fontWeight: 600,
+                  padding: "12px 8px", textAlign: "right",
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={e => (e.currentTarget.style.color = "var(--neon-green)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "rgba(200,230,220,0.8)")}
+                onMouseEnter={e => e.currentTarget.style.color = "#f8fafc"}
+                onMouseLeave={e => e.currentTarget.style.color = "rgba(203,213,225,0.8)"}
               >
                 {link.label}
               </button>

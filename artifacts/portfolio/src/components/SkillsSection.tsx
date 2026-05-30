@@ -1,191 +1,118 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
   {
     id: "forensics",
-    title: "التحليل الجنائي الرقمي",
-    subtitle: "Digital Forensics",
     icon: "🔬",
+    title: "التحليل الجنائي الرقمي",
+    sub: "Digital Forensics",
+    desc: "استخراج الأدلة الرقمية من الأجهزة المشفرة والمقفلة باستخدام أحدث التقنيات الجنائية المعتمدة دولياً.",
+    items: ["Cellebrite UFED — استخراج جنائي متقدم", "Oxygen Forensic Detective", "تجاوز الأقفال واستخراج البيانات", "تحليل الأجهزة المشفرة"],
+    color: "#29a8e0",
     span: "col-span-12 md:col-span-7",
-    color: "var(--neon-green)",
-    items: [
-      "تجاوز أقفال الأجهزة واستخراج البيانات",
-      "Cellebrite UFED — استخراج جنائي متقدم",
-      "Oxygen Forensic Detective",
-      "تحليل الأجهزة المشفرة والمقفلة",
-    ],
-    tags: ["Cellebrite", "Oxygen", "UFED", "EDL"],
+    featured: true,
   },
   {
     id: "mobile",
-    title: "برمجيات الهاتف المتقدمة",
-    subtitle: "Advanced Mobile Software",
     icon: "📱",
+    title: "برمجيات الهاتف المتقدمة",
+    sub: "Advanced Mobile",
+    desc: "التعامل المحترف مع صناديق وأدوات الهاتف المتخصصة وتجاوز حماية المصنع.",
+    items: ["Pandora / Chimera / DFT Pro", "EFT Pro / Z3X Box", "تجاوز iCloud & Android FRP", "Firmware Management"],
+    color: "#1976d2",
     span: "col-span-12 md:col-span-5",
-    color: "var(--neon-blue)",
-    items: [
-      "Pandora / Chimera / DFT Pro",
-      "EFT Pro / Z3X Box",
-      "تجاوز iCloud & Android FRP",
-      "تثبيت وإدارة Firmware",
-    ],
-    tags: ["iCloud Bypass", "FRP", "JTAG", "ISP"],
+    featured: false,
   },
   {
     id: "gsm",
-    title: "إدارة سيرفرات GSM",
-    subtitle: "GSM Server Management",
     icon: "📡",
-    span: "col-span-12 md:col-span-5",
-    color: "#a855f7",
-    items: [
-      "HalabTech Server — إدارة شاملة",
-      "شراء الكريدت وإدارة الاشتراكات",
-      "نشر Firmware بشكل آمن",
-      "دعم طيف واسع من الأجهزة",
-    ],
-    tags: ["HalabTech", "GSM", "Firmware"],
+    title: "إدارة سيرفرات GSM",
+    sub: "GSM Server Management",
+    desc: "إدارة شاملة لسيرفرات GSM مع إدارة الكريدت والاشتراكات.",
+    items: ["HalabTech Server", "شراء الكريدت وإدارة الاشتراكات", "نشر Firmware آمن", "دعم طيف واسع من الأجهزة"],
+    color: "#7c3aed",
+    span: "col-span-12 md:col-span-4",
+    featured: false,
   },
   {
     id: "dev",
-    title: "هندسة البرمجيات",
-    subtitle: "Software Engineering",
     icon: "⚡",
-    span: "col-span-12 md:col-span-7",
-    color: "#f59e0b",
-    items: [
-      "تطوير تطبيقات Android أصيلة (Java/Kotlin)",
-      "بناء واجهات ويب متجاوبة وعصرية",
-      "تصميم قواعد بيانات مشفرة",
-      "UI/UX عربي ومتعدد اللغات",
-    ],
-    tags: ["Android", "React", "Kotlin", "SQLite"],
+    title: "هندسة البرمجيات",
+    sub: "Software Engineering",
+    desc: "تطوير تطبيقات Android أصيلة وبناء واجهات ويب متجاوبة وعصرية.",
+    items: ["Android (Java / Kotlin)", "تطبيقات React & Vite", "قواعد بيانات مشفرة", "UI/UX عربي متعدد اللغات"],
+    color: "#d97706",
+    span: "col-span-12 md:col-span-4",
+    featured: false,
+  },
+  {
+    id: "net",
+    icon: "🌐",
+    title: "هندسة الشبكات",
+    sub: "Network Engineering",
+    desc: "تصميم وإدارة الشبكات مع تطبيق معايير الأمان.",
+    items: ["TCP/IP وبروتوكولات الشبكات", "Cisco Networking", "أمن الشبكات والجدران النارية", "إدارة الخوادم"],
+    color: "#0891b2",
+    span: "col-span-12 md:col-span-4",
+    featured: false,
   },
   {
     id: "design",
-    title: "تصميم جرافيك وإعلانات",
-    subtitle: "Design & Advertising",
     icon: "🎨",
-    span: "col-span-12 md:col-span-4",
-    color: "#ec4899",
-    items: [
-      "تصميم جرافيك احترافي",
-      "حملات إعلانية على وسائل التواصل",
-      "هوية بصرية متكاملة",
-    ],
-    tags: ["Photoshop", "Social Media"],
-  },
-  {
-    id: "hardware",
-    title: "صيانة الحواسيب",
-    subtitle: "PC Maintenance",
-    icon: "🖥️",
-    span: "col-span-12 md:col-span-4",
-    color: "#06b6d4",
-    items: [
-      "صيانة هاردوير شاملة",
-      "تثبيت وإدارة الأنظمة",
-      "استعادة البيانات",
-    ],
-    tags: ["Hardware", "Windows", "Linux"],
-  },
-  {
-    id: "network",
-    title: "هندسة الشبكات",
-    subtitle: "Network Engineering",
-    icon: "🌐",
-    span: "col-span-12 md:col-span-4",
-    color: "var(--neon-green)",
-    items: [
-      "تصميم وإدارة الشبكات",
-      "بروتوكولات الشبكات المتقدمة",
-      "أمن الشبكات والجدران النارية",
-    ],
-    tags: ["TCP/IP", "Cisco", "VPN"],
+    title: "تصميم ودعاية",
+    sub: "Design & Marketing",
+    desc: "تصميم الهوية البصرية وإدارة الحملات الإعلانية.",
+    items: ["تصميم جرافيك احترافي", "حملات وسائل التواصل", "هوية بصرية متكاملة", "صيانة الحواسيب"],
+    color: "#db2777",
+    span: "col-span-12 md:col-span-6",
+    featured: false,
   },
 ];
 
 function SkillCard({ skill, index }: { skill: typeof skills[0]; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!cardRef.current) return;
-    gsap.fromTo(cardRef.current,
-      { opacity: 0, y: 50, scale: 0.95 },
-      {
-        opacity: 1, y: 0, scale: 1,
-        duration: 0.7,
-        delay: index * 0.08,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: "top 88%",
-          once: true,
-        },
-      }
+    if (!ref.current) return;
+    gsap.fromTo(ref.current,
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.65, delay: index * 0.07, ease: "power2.out",
+        scrollTrigger: { trigger: ref.current, start: "top 88%", once: true } }
     );
   }, [index]);
 
   return (
-    <div ref={cardRef} className={`${skill.span} skill-card glass-panel glow-border`} style={{
-      padding: "24px",
-      cursor: "default",
-      position: "relative",
-      overflow: "hidden",
-    }}>
-      <div style={{
-        position: "absolute", top: 0, right: 0,
-        width: 80, height: 80,
-        background: `radial-gradient(circle at 100% 0%, ${skill.color}15 0%, transparent 70%)`,
-        pointerEvents: "none",
-      }} />
-
-      <div style={{ display: "flex", alignItems: "flex-start", gap: 14, marginBottom: 16 }}>
-        <div style={{
-          width: 44, height: 44, borderRadius: 10,
-          background: `${skill.color}18`,
-          border: `1px solid ${skill.color}30`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 20, flexShrink: 0,
-        }}>
+    <div
+      ref={ref}
+      className={`${skill.span} card`}
+      style={{ padding: skill.featured ? 32 : 26, opacity: 0, cursor: "default" }}
+    >
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 18 }}>
+        <div className="skill-icon" style={{ background: `${skill.color}18`, border: `1px solid ${skill.color}30` }}>
           {skill.icon}
         </div>
-        <div>
-          <h3 style={{ fontSize: 16, fontWeight: 700, color: "#e0f7f0", marginBottom: 3 }}>{skill.title}</h3>
-          <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: skill.color, opacity: 0.7 }}>
-            {skill.subtitle}
-          </div>
+        <div style={{ flex: 1 }}>
+          <h3 style={{ fontSize: skill.featured ? 17 : 15, fontWeight: 700, color: "#f8fafc", marginBottom: 3 }}>
+            {skill.title}
+          </h3>
+          <div style={{ fontSize: 11, fontWeight: 600, color: skill.color, letterSpacing: 0.5 }}>{skill.sub}</div>
         </div>
       </div>
 
-      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 7 }}>
-        {skill.items.map((item, i) => (
-          <li key={i} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13.5, color: "rgba(224,247,240,0.75)" }}>
-            <span style={{
-              width: 5, height: 5, borderRadius: "50%",
-              background: skill.color, flexShrink: 0,
-              boxShadow: `0 0 6px ${skill.color}`,
-            }} />
-            {item}
-          </li>
-        ))}
-      </ul>
+      {skill.featured && (
+        <p style={{ fontSize: 14, color: "rgba(203,213,225,0.65)", lineHeight: 1.75, marginBottom: 20 }}>
+          {skill.desc}
+        </p>
+      )}
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-        {skill.tags.map(tag => (
-          <span key={tag} style={{
-            padding: "3px 9px",
-            borderRadius: 4, fontSize: 11, fontFamily: "var(--font-mono)",
-            background: `${skill.color}10`,
-            border: `1px solid ${skill.color}25`,
-            color: skill.color,
-          }}>
-            {tag}
-          </span>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {skill.items.map((item, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ width: 5, height: 5, borderRadius: "50%", background: skill.color, flexShrink: 0 }} />
+            <span style={{ fontSize: 13.5, color: "rgba(203,213,225,0.75)" }}>{item}</span>
+          </div>
         ))}
       </div>
     </div>
@@ -193,50 +120,42 @@ function SkillCard({ skill, index }: { skill: typeof skills[0]; index: number })
 }
 
 export default function SkillsSection() {
-  const titleRef = useRef<HTMLDivElement>(null);
-
+  const hRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!titleRef.current) return;
-    gsap.fromTo(titleRef.current,
+    if (!hRef.current) return;
+    gsap.fromTo(hRef.current,
       { opacity: 0, y: 30 },
-      {
-        opacity: 1, y: 0, duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: { trigger: titleRef.current, start: "top 85%", once: true },
-      }
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+        scrollTrigger: { trigger: hRef.current, start: "top 85%", once: true } }
     );
   }, []);
 
   return (
-    <section id="skills" className="grid-bg" style={{ padding: "100px 0", position: "relative" }}>
-      <div style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: 1,
-        background: "linear-gradient(90deg, transparent, rgba(0,255,204,0.3), transparent)",
-      }} />
+    <section id="skills" style={{ padding: "100px 0", background: "var(--navy-900)" }}>
+      <div className="section-container">
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-        <div ref={titleRef} style={{ textAlign: "center", marginBottom: 64 }}>
-          <div className="terminal-text" style={{ marginBottom: 10, fontSize: 12 }}>
-            &gt; SKILLS_DATABASE :: LOADING...
+        <div ref={hRef} className="section-header" style={{ opacity: 0 }}>
+          <div className="label-text" style={{ marginBottom: 14, textAlign: "center" }}>
+            الكفاءات والخبرات
           </div>
-          <h2 className="section-title" style={{ marginBottom: 14 }}>
-            <span className="neon-text">المهارات</span>{" "}
-            <span style={{ color: "rgba(224,247,240,0.9)" }}>والخبرات</span>
+          <h2 className="heading-lg" style={{ textAlign: "center", marginBottom: 16 }}>
+            المهارات التقنية
           </h2>
-          <div style={{ height: 2, width: 60, background: "var(--neon-green)", margin: "0 auto", borderRadius: 1, boxShadow: "0 0 10px var(--neon-green)" }} />
+          <div className="ornament">
+            <div className="accent-bar" />
+          </div>
+          <p className="body-text" style={{ textAlign: "center", maxWidth: 520, margin: "20px auto 0", fontSize: 14 }}>
+            خلفية تقنية شاملة تجمع بين التحليل الجنائي الرقمي، الأمن السيبراني، وتطوير البرمجيات
+          </p>
         </div>
 
-        <div className="bento-grid">
+        <div className="bento-grid" style={{ display: "grid", gap: 18, gridTemplateColumns: "repeat(12, 1fr)" }}>
           {skills.map((skill, i) => (
             <SkillCard key={skill.id} skill={skill} index={i} />
           ))}
         </div>
-      </div>
 
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: 1,
-        background: "linear-gradient(90deg, transparent, rgba(0,170,255,0.25), transparent)",
-      }} />
+      </div>
     </section>
   );
 }
