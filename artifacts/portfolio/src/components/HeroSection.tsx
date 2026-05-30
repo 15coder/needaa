@@ -110,18 +110,14 @@ export default function HeroSection({ dark }: Props) {
             {/* Text block */}
             <div className="hero-text" style={{ width: "100%" }}>
 
-              {/* Name — single line with gradient */}
+              {/* Name — single line with animated gradient */}
               <div className="anim-1" style={{ marginBottom: 16 }}>
-                <h1 style={{
+                <h1 className="grad-name" style={{
                   fontWeight: 900,
                   lineHeight: 1.06,
                   letterSpacing: "-.03em",
                   fontSize: "clamp(1.9rem, 8.5vw, 4rem)",
                   whiteSpace: "nowrap",
-                  background: "linear-gradient(135deg, var(--tx1) 0%, var(--tx1) 38%, var(--blue) 60%, var(--purple) 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
                 }}>
                   نداء الرحمن عبود
                 </h1>
