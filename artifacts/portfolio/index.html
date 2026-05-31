@@ -1,21 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
+    <!-- ═══════════════════════════════════════════
+         1. CHARSET & VIEWPORT
+    ═══════════════════════════════════════════ -->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Needaa Al-Rahman Portfolio</title>
-    <meta name="description" content="Needaa Al-Rahman Portfolio — built on Replit. Update this description to reflect the app." />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Needaa Al-Rahman Portfolio" />
-    <meta property="og:description" content="Needaa Al-Rahman Portfolio — built on Replit. Update this description to reflect the app." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Needaa Al-Rahman Portfolio" />
-    <meta name="twitter:description" content="Needaa Al-Rahman Portfolio — built on Replit. Update this description to reflect the app." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+
+    <!-- ═══════════════════════════════════════════
+         2. TITLE & BASIC SEO
+    ═══════════════════════════════════════════ -->
+    <title>نداء الرحمن عبود | خبير أمن سيبراني وتحليل جنائي رقمي وتطوير تطبيقات</title>
+
+    <meta name="description"
+      content="نداء الرحمن عبود — خبير متخصص في التحليل الجنائي الرقمي، الأمن السيبراني، استعادة البيانات، وتطوير تطبيقات Android. مطور تطبيق نداء شايلد لحماية الخصوصية وتطبيق مجاهد للتجارة. متاح للتعاون والاستشارات التقنية." />
+
+    <meta name="keywords"
+      content="أمن سيبراني, تحليل جنائي رقمي, Digital Forensics, Cybersecurity, استعادة البيانات, تطوير تطبيقات Android, Nidaa Shield, نداء شايلد, أمن معلومات, هاكر أخلاقي, Ethical Hacking, برمجة تطبيقات, مطور ويب, Full Stack, Cellebrite, UFED, Oxygen Forensic, FRP Bypass, iCloud Bypass, GSM Server, نداء الرحمن عبود, Nidaa Aboud, Netlify" />
+
+    <meta name="author" content="نداء الرحمن عبود" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="theme-color" content="#007AFF" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://YOUR-SITE.netlify.app/" />
+
+    <!-- ═══════════════════════════════════════════
+         3. OPEN GRAPH (Facebook / LinkedIn / WhatsApp)
+    ═══════════════════════════════════════════ -->
+    <meta property="og:type"        content="profile" />
+    <meta property="og:locale"      content="ar_AR" />
+    <meta property="og:site_name"   content="نداء الرحمن عبود" />
+    <meta property="og:title"       content="نداء الرحمن عبود | خبير أمن سيبراني وتحليل جنائي رقمي" />
+    <meta property="og:description" content="خبير في التحليل الجنائي الرقمي، الأمن السيبراني، وتطوير تطبيقات Android. مطور نداء شايلد ومجاهد للتجارة. متاح للاستشارات التقنية والتعاون." />
+    <meta property="og:url"         content="https://YOUR-SITE.netlify.app/" />
+    <meta property="og:image"       content="https://YOUR-SITE.netlify.app/opengraph.jpg" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt"   content="نداء الرحمن عبود - خبير أمن سيبراني" />
+    <meta property="profile:first_name" content="نداء الرحمن" />
+    <meta property="profile:last_name"  content="عبود" />
+
+    <!-- ═══════════════════════════════════════════
+         4. TWITTER CARDS
+    ═══════════════════════════════════════════ -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="نداء الرحمن عبود | خبير أمن سيبراني وتحليل جنائي رقمي" />
+    <meta name="twitter:description" content="خبير في التحليل الجنائي الرقمي والأمن السيبراني وتطوير تطبيقات Android. مطور نداء شايلد ومجاهد للتجارة." />
+    <meta name="twitter:image"       content="https://YOUR-SITE.netlify.app/opengraph.jpg" />
+    <meta name="twitter:image:alt"   content="نداء الرحمن عبود - خبير أمن سيبراني" />
+
+    <!-- ═══════════════════════════════════════════
+         5. SCHEMA MARKUP — Person (JSON-LD)
+    ═══════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "نداء الرحمن عبود",
+      "alternateName": "Nidaa Al-Rahman Aboud",
+      "url": "https://YOUR-SITE.netlify.app/",
+      "image": "https://YOUR-SITE.netlify.app/logo.webp",
+      "jobTitle": "خبير أمن سيبراني وتحليل جنائي رقمي ومطور تطبيقات",
+      "description": "خبير متخصص في التحليل الجنائي الرقمي، الأمن السيبراني، استعادة البيانات، وتطوير تطبيقات Android.",
+      "knowsAbout": [
+        "Digital Forensics",
+        "Cybersecurity",
+        "Android Development",
+        "Cellebrite UFED",
+        "Oxygen Forensic",
+        "FRP Bypass",
+        "iCloud Bypass",
+        "GSM Server Management",
+        "Data Recovery",
+        "Ethical Hacking"
+      ],
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "جامعة حلب",
+          "description": "دبلوم تقاني في هندسة الشبكات"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "منصة إدراك",
+          "description": "شهادة في الأمن السيبراني"
+        }
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "خبير أمن سيبراني وتحليل جنائي رقمي",
+        "occupationLocation": {
+          "@type": "Country",
+          "name": "Syria"
+        },
+        "skills": "Digital Forensics, Cybersecurity, Android Development, GSM"
+      },
+      "sameAs": [
+        "https://t.me/nidaashield",
+        "https://t.me/mojahedapp"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "needaaalrahman00101@gmail.com",
+        "availableLanguage": ["Arabic", "English"]
+      }
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════════
+         6. WEBSITE SCHEMA (for SiteLinks in Google)
+    ═══════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "نداء الرحمن عبود",
+      "url": "https://YOUR-SITE.netlify.app/",
+      "description": "الموقع الشخصي لنداء الرحمن عبود — خبير أمن سيبراني وتحليل جنائي رقمي ومطور تطبيقات",
+      "inLanguage": "ar",
+      "author": {
+        "@type": "Person",
+        "name": "نداء الرحمن عبود"
+      }
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════════
+         7. FAVICON & ICONS
+    ═══════════════════════════════════════════ -->
+    <link rel="icon"             type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/logo.webp" />
+
+    <!-- ═══════════════════════════════════════════
+         8. FONTS
+    ═══════════════════════════════════════════ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>

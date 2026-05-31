@@ -12,3 +12,9 @@ id = "x5LspZ-oKDqAC2alj0ZbS"
 uri = "file://portfolio-deploy.zip"
 type = "unspecified"
 title = "Portfolio — Netlify Deploy (ZIP)"
+
+[[outputs]]
+id = "fZ0KuXVo3qdlz9ZNHdjmf"
+uri = "file://portfolio-seo.zip"
+type = "unspecified"
+title = "Portfolio — نسخة SEO الكاملة (ZIP)"
