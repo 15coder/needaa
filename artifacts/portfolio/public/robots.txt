@@ -1,13 +1,9 @@
-# robots.txt — نداء الرحمن عبود Portfolio
-# https://YOUR-SITE.netlify.app
+# robots.txt — نداء الرحمن عبود | needaa.netlify.app
 
-# السماح لجميع روبوتات محركات البحث بفحص الموقع بالكامل
 User-agent: *
 Allow: /
 
-# منع فهرسة ملفات الأصول الخام (لتوفير حصة الزحف)
 Disallow: /assets/*.js$
 Disallow: /assets/*.css$
 
-# رابط خريطة الموقع
-Sitemap: https://YOUR-SITE.netlify.app/sitemap.xml
+Sitemap: https://needaa.netlify.app/sitemap.xml
