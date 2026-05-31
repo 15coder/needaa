@@ -30,3 +30,9 @@ id = "htJYFej0xB6MjwE5pSVPl"
 uri = "file://portfolio-seo-v3.zip"
 type = "unspecified"
 title = "Portfolio — sitemap.xml محدّث"
+
+[[outputs]]
+id = "xG2emqQBKcBD6smjLvZCI"
+uri = "file://portfolio-seo-v4.zip"
+type = "unspecified"
+title = "Portfolio — robots.txt محدّث"

@@ -1,9 +1,4 @@
-# robots.txt — نداء الرحمن عبود | needaa.netlify.app
-
 User-agent: *
 Allow: /
-
-Disallow: /assets/*.js$
-Disallow: /assets/*.css$
 
 Sitemap: https://needaa.netlify.app/sitemap.xml
