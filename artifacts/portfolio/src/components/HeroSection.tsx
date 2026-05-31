@@ -19,11 +19,17 @@ function Ring({ size, dark }: { size: number; dark: boolean }) {
         background: dark ? "rgba(8,8,15,.88)" : "rgba(242,242,252,.90)",
         transition: "background .35s",
       }}>
-        <img src="/logo.webp" alt="نداء الرحمن محمد عبود - نداء الرحمن - Nedaa Alrahman Aboud" style={{
-          width: "100%", height: "100%",
-          borderRadius: "50%", objectFit: "cover",
-          display: "block",
-        }} />
+        {/* نقطة 3: alt يحتوي الاسم الكامل | نقطة 5: loading="lazy" */}
+        <img
+          src="/logo.webp"
+          alt="نداء الرحمن - من هو نداء الرحمن محمد عبود - Nedaa Alrahman Aboud"
+          loading="lazy"
+          style={{
+            width: "100%", height: "100%",
+            borderRadius: "50%", objectFit: "cover",
+            display: "block",
+          }}
+        />
       </div>
     </div>
   );
@@ -90,7 +96,8 @@ export default function HeroSection({ dark }: Props) {
         .edu-pill:last-child { margin-bottom: 0; }
       `}</style>
 
-      <section id="hero" style={{
+      {/* نقطة 7: section بدلاً من div لتنظيم HTML5 الدلالي */}
+      <section id="hero" aria-label="نداء الرحمن محمد عبود — مطور برمجيات وخبير أمن سيبراني" style={{
         position: "relative", minHeight: "100svh",
         display: "flex", alignItems: "center",
         overflow: "hidden",
@@ -102,15 +109,14 @@ export default function HeroSection({ dark }: Props) {
         }}>
           <div className="hero-layout">
 
-            {/* Mobile logo — big & centered */}
             <div className="hero-logo-mobile">
               <Ring size={148} dark={dark} />
             </div>
 
-            {/* Text block */}
-            <div className="hero-text" style={{ width: "100%" }}>
+            {/* نقطة 7: article للمحتوى النصي الرئيسي */}
+            <article className="hero-text" style={{ width: "100%" }}>
 
-              {/* Name — single line with animated gradient */}
+              {/* نقطة 9: الاسم في أول 100 كلمة + h1 (نقطة 4 من الجلسة السابقة) */}
               <div className="anim-1" style={{ marginBottom: 16 }}>
                 <h1 className="grad-name" style={{
                   fontWeight: 900,
@@ -123,7 +129,7 @@ export default function HeroSection({ dark }: Props) {
                 </h1>
               </div>
 
-              {/* Bio */}
+              {/* نقطة 9: أول جملة مرئية تحتوي "نداء الرحمن" صراحةً */}
               <div className="anim-2" style={{ marginBottom: 28 }}>
                 <p style={{
                   fontSize: "clamp(14.5px, 3.6vw, 16.5px)",
@@ -131,11 +137,10 @@ export default function HeroSection({ dark }: Props) {
                   maxWidth: 440, fontWeight: 500,
                   margin: "0 auto",
                 }}>
-                  خبير في التحليل الجنائي الرقمي والأمن السيبراني وتطوير التطبيقات.
+                  أهلاً، أنا نداء الرحمن — خبير في التحليل الجنائي الرقمي والأمن السيبراني وتطوير التطبيقات.
                 </p>
               </div>
 
-              {/* Education */}
               <div className="anim-3" style={{ marginBottom: 0 }}>
                 {[
                   { icon: "🎓", txt: "دبلوم تقاني في هندسة الشبكات — جامعة حلب" },
@@ -150,25 +155,26 @@ export default function HeroSection({ dark }: Props) {
                 ))}
               </div>
 
-              {/* CTAs */}
+              {/* نقطة 4: Anchor Text محسّن يحتوي اسم نداء الرحمن */}
               <div className="anim-4 hero-btns">
                 <a href="#projects" className="btn btn-blue"
                   onClick={e => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}
-                  style={{ textDecoration: "none" }}>
+                  style={{ textDecoration: "none" }}
+                  title="مشاريع نداء الرحمن محمد عبود">
                   <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
-                  عرض المشاريع
+                  مشاريع نداء الرحمن
                 </a>
                 <a href="#contact" className="btn btn-outline"
                   onClick={e => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                  style={{ textDecoration: "none" }}>
-                  تواصل معي
+                  style={{ textDecoration: "none" }}
+                  title="تواصل مع نداء الرحمن عبود">
+                  تواصل مع نداء الرحمن
                 </a>
               </div>
-            </div>
+            </article>
 
-            {/* Desktop logo — side */}
             <div className="hero-logo-desktop">
               <Ring size={210} dark={dark} />
               <div style={{ textAlign: "center" }}>
@@ -187,7 +193,6 @@ export default function HeroSection({ dark }: Props) {
           </div>
         </div>
 
-        {/* Scroll cue */}
         <div style={{
           position: "absolute", bottom: 26, left: "50%", transform: "translateX(-50%)",
           display: "flex", flexDirection: "column", alignItems: "center", gap: 7,

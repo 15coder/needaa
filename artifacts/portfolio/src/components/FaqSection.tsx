@@ -19,6 +19,7 @@ export default function FaqSection() {
   ];
 
   return (
+    /* نقطة 7: section دلالي بـ aria-label */
     <section
       id="faq"
       aria-label="أسئلة شائعة عن نداء الرحمن عبود"
@@ -33,13 +34,13 @@ export default function FaqSection() {
           text-align: center;
           color: var(--tx1);
         }
-        .faq-item {
+        .faq-article {
           border-radius: 18px;
           margin-bottom: 14px;
           overflow: hidden;
           transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
         }
-        .faq-item:hover { transform: translateY(-2px); }
+        .faq-article:hover { transform: translateY(-2px); }
         .faq-q {
           width: 100%;
           background: none;
@@ -55,34 +56,41 @@ export default function FaqSection() {
           font-weight: 700;
           color: var(--tx1);
           text-align: right;
+          list-style: none;
         }
+        .faq-q::-webkit-details-marker { display: none; }
         .faq-chevron {
           width: 20px; height: 20px; flex-shrink: 0;
           transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
           color: var(--blue);
         }
-        .faq-item[open] .faq-chevron { transform: rotate(180deg); }
+        details[open] .faq-chevron { transform: rotate(180deg); }
         .faq-a {
           padding: 0 20px 18px;
           font-size: 14px;
           color: var(--tx2);
           line-height: 1.75;
+          margin: 0;
         }
       `}</style>
 
       <div className="faq-wrap reveal">
         <h2 className="faq-title">أسئلة شائعة عن نداء الرحمن عبود</h2>
+
+        {/* نقطة 7: كل سؤال داخل article دلالي */}
         {faqs.map((item, i) => (
-          <details key={i} className="card faq-item">
-            <summary className="faq-q">
-              <span>{item.q}</span>
-              <svg className="faq-chevron" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2.5">
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </summary>
-            <p className="faq-a">{item.a}</p>
-          </details>
+          <article key={i} className="card faq-article">
+            <details>
+              <summary className="faq-q">
+                <span>{item.q}</span>
+                <svg className="faq-chevron" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </summary>
+              <p className="faq-a">{item.a}</p>
+            </details>
+          </article>
         ))}
       </div>
     </section>
