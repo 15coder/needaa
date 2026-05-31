@@ -6,3 +6,9 @@ id = "xQQb0E8XR8YvGvWUUdzxH"
 uri = "file://portfolio-netlify.tar.gz"
 type = "unspecified"
 title = "Portfolio — Netlify Deploy Package"
+
+[[outputs]]
+id = "x5LspZ-oKDqAC2alj0ZbS"
+uri = "file://portfolio-deploy.zip"
+type = "unspecified"
+title = "Portfolio — Netlify Deploy (ZIP)"
