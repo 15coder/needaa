@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
+import FaqSection from "@/components/FaqSection";
 
 function MeshBg({ dark }: { dark: boolean }) {
   return (
@@ -100,6 +101,7 @@ export default function App() {
           <HeroSection dark={dark} />
           <SkillsSection />
           <ProjectsSection />
+          <FaqSection />
           <ContactSection />
         </main>
       </div>

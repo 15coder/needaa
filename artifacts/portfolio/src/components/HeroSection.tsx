@@ -19,7 +19,7 @@ function Ring({ size, dark }: { size: number; dark: boolean }) {
         background: dark ? "rgba(8,8,15,.88)" : "rgba(242,242,252,.90)",
         transition: "background .35s",
       }}>
-        <img src="/logo.webp" alt="نداء" style={{
+        <img src="/logo.webp" alt="نداء الرحمن محمد عبود - نداء الرحمن - Nedaa Alrahman Aboud" style={{
           width: "100%", height: "100%",
           borderRadius: "50%", objectFit: "cover",
           display: "block",
